@@ -1,9 +1,10 @@
-require("dotenv").config();
+const path = require("path");
+require("dotenv").config({ path: path.join(__dirname, ".env") });
 
 const express = require("express");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
-const path = require("path");
+// path already imported above
 
 const app = express();
 
@@ -205,11 +206,15 @@ app.use((err, req, res, next) => {
 
 
 // ================= INICIO SERVIDOR =================
-app.use("/usuarios", usuariosRoutes);
 app.listen(PORT, () => {
 
+    const url = `http://localhost:${PORT}`;
 
-    console.log(`Servidor modular corriendo en http://localhost:${PORT}`);
-
+    console.log("");
+    console.log("========================================");
+    console.log("  Servidor iniciado correctamente ✅");
+    console.log(`  Abre la aplicación aquí: ${url}`);
+    console.log("========================================");
+    console.log("");
 
 });

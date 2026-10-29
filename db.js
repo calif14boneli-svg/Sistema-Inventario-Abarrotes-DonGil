@@ -3,7 +3,7 @@ const mysql = require('mysql2');
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '1234qWeR#', // ← mi contraseña MySQL Workbench
+    password: 'Nacho19.', // ← mi contraseña MySQL Workbench
     database: 'abarrotes_db'
 });
 
