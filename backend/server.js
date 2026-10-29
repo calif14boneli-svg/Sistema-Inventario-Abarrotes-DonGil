@@ -268,6 +268,80 @@ app.get("/tienda/categorias", async (req, res) => {
 });
 
 
+// ================= CONTACTO (público) =================
+// Guarda los mensajes enviados desde contacto.html en la tabla
+// mensajes_contacto. La tabla se crea automáticamente si no existe.
+
+async function asegurarTablaContacto() {
+    await db.query(`
+        CREATE TABLE IF NOT EXISTS mensajes_contacto (
+            id INT PRIMARY KEY AUTO_INCREMENT,
+            nombre VARCHAR(100) NOT NULL,
+            correo VARCHAR(100) NOT NULL,
+            telefono VARCHAR(50),
+            asunto VARCHAR(150),
+            mensaje TEXT NOT NULL,
+            estado ENUM('NUEVO','LEIDO','RESPONDIDO') DEFAULT 'NUEVO',
+            fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    `);
+}
+
+// Crea la tabla al iniciar (no bloquea el arranque si falla)
+asegurarTablaContacto().catch(err =>
+    console.error("No se pudo preparar mensajes_contacto:", err.message)
+);
+
+
+app.post("/contacto", async (req, res) => {
+
+    try {
+
+        const { nombre, correo, telefono, asunto, mensaje } = req.body;
+
+        if (!nombre || !correo || !mensaje) {
+            return res.status(400).json({
+                success: false,
+                message: "Nombre, correo y mensaje son obligatorios"
+            });
+        }
+
+        await asegurarTablaContacto();
+
+        const sql = `
+            INSERT INTO mensajes_contacto
+                (nombre, correo, telefono, asunto, mensaje)
+            VALUES (?, ?, ?, ?, ?)
+        `;
+
+        const [resultado] = await db.query(sql, [
+            nombre,
+            correo,
+            telefono || null,
+            asunto || null,
+            mensaje
+        ]);
+
+        res.json({
+            success: true,
+            message: "Mensaje recibido correctamente",
+            id: resultado.insertId
+        });
+
+    } catch (error) {
+
+        console.error("Error en /contacto:", error.message);
+
+        res.status(500).json({
+            success: false,
+            message: "Error al enviar el mensaje"
+        });
+
+    }
+
+});
+
+
 // ================= MANEJO DE ERRORES =================
 
 app.use((err, req, res, next) => {

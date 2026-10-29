@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos - Abarrotes Don Gil</title>
+    <link rel="stylesheet" href="tienda.css">
+</head>
+<body>
+
+    <!-- ========== BARRA SUPERIOR ========== -->
+    <div class="top-bar">
+        <div class="contenedor">
+            <span>🚚 Envío gratis en compras desde S/ 120</span>
+            <nav class="top-nav">
+                <a href="contacto.html">📞 (01) 555-1234</a>
+                <a href="contacto.html">✉️ contacto@dongil.pe</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- ========== HEADER / MENÚ ========== -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="tienda.html" class="logo">
+                <span class="logo-mark">DG</span>
+                <span class="logo-text">
+                    <small>Tienda de Abarrotes</small>
+                    <strong>Don Gil</strong>
+                </span>
+            </a>
+            <ul class="menu" id="menuPrincipal">
+                <li><a href="tienda.html">Inicio</a></li>
+                <li><a href="productos.html" class="activo">Productos</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+            <div class="header-actions">
+                <a href="index.html" class="btn-login">👤 Acceso</a>
+                <button class="btn-cart" id="btnCarrito">🛒 <span class="cart-count" id="cartCount">0</span></button>
+                <button class="menu-toggle" id="menuToggle" aria-label="Menú">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== ENCABEZADO DE PÁGINA ========== -->
+    <section class="hero" style="padding:50px 0">
+        <div class="contenedor">
+            <h1 style="font-size:34px;margin:0">Nuestro catálogo</h1>
+            <p style="margin:8px 0 0">Explora todos nuestros productos de abarrotes por categoría.</p>
+        </div>
+    </section>
+
+    <!-- ========== CATÁLOGO ========== -->
+    <main class="seccion contenedor">
+        <div class="catalogo-layout">
+            <!-- Sidebar categorías -->
+            <aside class="sidebar" data-anim="left">
+                <h3>Categorías</h3>
+                <ul id="listaCategorias">
+                    <li class="activo" data-id="todas">Todos los productos</li>
+                </ul>
+            </aside>
+
+            <!-- Catálogo -->
+            <div class="catalogo-main">
+                <div class="buscador-wrap">
+                    <input type="text" id="buscador" placeholder="Busca productos, marcas y más...">
+                    <button id="btnBuscar" aria-label="Buscar">🔍</button>
+                </div>
+
+                <div class="catalogo-header">
+                    <h1 id="tituloSeccion">Todos los productos</h1>
+                    <span class="contador" id="contadorProductos"></span>
+                </div>
+
+                <div class="grid-productos" id="gridProductos"></div>
+                <p class="mensaje-vacio" id="mensajeVacio" style="display:none">No se encontraron productos.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="footer-cols">
+            <div class="footer-logo">
+                <h4>Abarrotes <strong>Don Gil</strong></h4>
+                <p>Tu tienda de confianza para el hogar. Calidad, frescura y los mejores precios.</p>
+            </div>
+            <div>
+                <h4>Navegación</h4>
+                <a href="tienda.html">Inicio</a>
+                <a href="productos.html">Productos</a>
+                <a href="nosotros.html">Nosotros</a>
+                <a href="contacto.html">Contacto</a>
+            </div>
+            <div>
+                <h4>Ayuda</h4>
+                <a href="contacto.html">Preguntas frecuentes</a>
+                <a href="contacto.html">Métodos de pago</a>
+                <a href="contacto.html">Envíos y entregas</a>
+            </div>
+            <div>
+                <h4>Contacto</h4>
+                <p>📍 Av. Los Abarrotes 123, Lima</p>
+                <p>📞 (01) 555-1234</p>
+                <p>✉️ contacto@dongil.pe</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2026 Tienda de Abarrotes Don Gil. Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <!-- ========== CARRITO LATERAL ========== -->
+    <div class="carrito-overlay" id="carritoOverlay"></div>
+    <aside class="carrito-panel" id="carritoPanel">
+        <div class="carrito-head">
+            <h3>Mi carrito</h3>
+            <button id="cerrarCarrito" aria-label="Cerrar">✖</button>
+        </div>
+        <div class="carrito-items" id="carritoItems"></div>
+        <div class="carrito-footer">
+            <div class="carrito-total">
+                <span>Total:</span>
+                <strong id="carritoTotal">S/ 0.00</strong>
+            </div>
+            <button class="btn-pagar" onclick="alert('Función de pago de demostración')">Finalizar compra</button>
+        </div>
+    </aside>
+
+    <script src="animations.js"></script>
+    <script src="app.js"></script>
+    <script src="productos.js"></script>
+</body>
+</html>

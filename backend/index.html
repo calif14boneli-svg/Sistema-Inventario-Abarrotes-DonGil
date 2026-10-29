@@ -113,7 +113,7 @@ th
 }
 
 
-/* ================= LOGIN ESTILO DON GIL ================= */
+/* ================= LOGIN ADMIN - ESTILO PANEL ================= */
 
 :root {
     --verde: #1f8a3b;
@@ -122,125 +122,150 @@ th
     --amarillo: #f6c600;
 }
 
-/* Cuando se muestra el login, la página ocupa toda la pantalla */
+/* Pantalla completa mientras se muestra el login */
 body.login-activo {
     margin: 0;
     padding: 0;
-    background: #f1f2f1;
+    background: #eef1ee;
 }
 
+/* Layout split: branding izquierda + formulario derecha */
 #login-page {
     min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+}
+
+/* ---- Panel de marca (izquierda) ---- */
+.lg-brand {
+    background: linear-gradient(150deg, var(--verde) 0%, var(--verde-osc) 100%);
+    color: #fff;
+    padding: 56px 54px;
     display: flex;
     flex-direction: column;
-}
-
-/* ---- Header ---- */
-.lg-header {
-    background: var(--verde);
-    border-bottom: 4px solid var(--amarillo);
-    color: #fff;
-}
-
-.lg-header-inner {
-    max-width: 1200px;
-    margin: auto;
-    display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding: 14px 24px;
-    flex-wrap: wrap;
-    gap: 12px;
+    position: relative;
+    overflow: hidden;
 }
 
-.lg-logo {
+.lg-brand::after {
+    content: "🏪";
+    position: absolute;
+    right: -30px;
+    bottom: -30px;
+    font-size: 260px;
+    opacity: .08;
+    transform: rotate(-10deg);
+}
+
+.lg-brand-logo {
     display: flex;
     align-items: center;
     gap: 12px;
+    z-index: 1;
 }
 
-.lg-logo-icon {
-    font-size: 26px;
-    background: rgba(255, 255, 255, .15);
-    padding: 6px 9px;
-    border-radius: 8px;
+.lg-brand-logo .mark {
+    background: #fff;
+    color: var(--verde);
+    font-weight: 800;
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 20px;
 }
 
-.lg-logo-text small {
+.lg-brand-logo small {
     display: block;
     font-size: 12px;
-    opacity: .9;
-    font-weight: normal;
-    margin: 0;
+    opacity: .85;
 }
 
-.lg-logo-text strong {
-    display: block;
+.lg-brand-logo strong {
     font-size: 20px;
     color: var(--amarillo);
 }
 
-.lg-nav {
-    display: flex;
-    align-items: center;
-    gap: 22px;
-    flex-wrap: wrap;
+.lg-brand-hero {
+    z-index: 1;
 }
 
-.lg-nav a {
-    color: #fff;
-    text-decoration: none;
+.lg-brand-hero h1 {
+    font-size: 34px;
+    line-height: 1.2;
+    margin-bottom: 14px;
+}
+
+.lg-brand-hero p {
+    opacity: .92;
+    max-width: 380px;
     font-size: 15px;
-    cursor: pointer;
 }
 
-.lg-nav a:hover {
-    text-decoration: underline;
+.lg-brand-list {
+    list-style: none;
+    margin: 22px 0 0;
+    padding: 0;
+    z-index: 1;
 }
 
-.lg-nav .lg-btn-login {
-    background: var(--verde-osc);
-    border: 1px solid rgba(255, 255, 255, .5);
-    padding: 8px 16px;
-    border-radius: 6px;
-    font-weight: bold;
+.lg-brand-list li {
+    padding: 5px 0 5px 26px;
+    position: relative;
+    font-size: 14px;
+    opacity: .95;
 }
 
-.lg-nav .lg-btn-login:hover {
-    background: #0f5222;
-    text-decoration: none;
+.lg-brand-list li::before {
+    content: "✔";
+    position: absolute;
+    left: 0;
+    color: var(--amarillo);
 }
 
-/* ---- Contenido central ---- */
-.lg-main {
-    flex: 1;
+.lg-brand-foot {
+    z-index: 1;
+    font-size: 12px;
+    opacity: .8;
+}
+
+/* ---- Panel del formulario (derecha) ---- */
+.lg-form-side {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 40px 16px;
+    padding: 40px 24px;
 }
 
 .lg-card {
-    background: #fff;
     width: 100%;
-    max-width: 420px;
-    padding: 36px 34px;
-    border-radius: 10px;
-    box-shadow: 0 6px 24px rgba(0, 0, 0, .08);
+    max-width: 400px;
+}
+
+.lg-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #e8f5ec;
+    color: var(--verde);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 20px;
+    margin-bottom: 18px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
 }
 
 .lg-card h2 {
-    text-align: center;
-    color: var(--verde-txt);
-    font-size: 26px;
+    color: #1a1a1a;
+    font-size: 27px;
     margin: 0 0 6px;
 }
 
 .lg-card .lg-sub {
-    text-align: center;
-    color: #666;
+    color: #777;
     font-size: 14px;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
 }
 
 .lg-field {
@@ -249,26 +274,68 @@ body.login-activo {
 
 .lg-field label {
     display: block;
-    font-weight: bold;
+    font-weight: 600;
     font-size: 14px;
-    margin-bottom: 6px;
-    color: #222;
+    margin-bottom: 7px;
+    color: #333;
+}
+
+.lg-input-wrap {
+    position: relative;
+}
+
+.lg-input-wrap .ico {
+    position: absolute;
+    left: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    opacity: .6;
 }
 
 .lg-field input {
     width: 100%;
-    padding: 12px 14px;
-    border: 1px solid #d5d5d5;
-    border-radius: 6px;
+    padding: 13px 14px 13px 40px;
+    border: 1px solid #d9d9d9;
+    border-radius: 8px;
     font-size: 15px;
     box-sizing: border-box;
     margin: 0;
+    background: #fafafa;
 }
 
 .lg-field input:focus {
     outline: none;
     border-color: var(--verde);
+    background: #fff;
     box-shadow: 0 0 0 3px rgba(31, 138, 59, .15);
+}
+
+.lg-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-bottom: 22px;
+}
+
+.lg-row label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #555;
+    cursor: pointer;
+}
+
+.lg-row a {
+    color: var(--verde);
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.lg-row a:hover {
+    text-decoration: underline;
 }
 
 .lg-btn-submit {
@@ -276,71 +343,61 @@ body.login-activo {
     background: var(--verde);
     color: #fff;
     border: none;
-    padding: 13px;
-    border-radius: 6px;
+    padding: 14px;
+    border-radius: 8px;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 700;
     cursor: pointer;
-    margin: 6px 0 0;
+    margin: 0;
+    transition: background .15s;
 }
 
 .lg-btn-submit:hover {
     background: var(--verde-osc);
 }
 
-.lg-divider {
-    border: none;
-    border-top: 1px solid #e3e3e3;
-    margin: 24px 0 18px;
-}
-
-.lg-footer-card {
+.lg-volver {
     text-align: center;
+    margin-top: 22px;
     font-size: 14px;
-    color: #666;
 }
 
-.lg-footer-card a {
-    color: var(--verde-txt);
-    font-weight: bold;
+.lg-volver a {
+    color: #777;
     text-decoration: none;
-    display: inline-block;
-    margin-top: 4px;
+    cursor: pointer;
 }
 
-.lg-footer-card a:hover {
-    text-decoration: underline;
-}
-
-/* ---- Footer ---- */
-.lg-footer {
-    background: var(--verde);
-    color: #fff;
-    text-align: left;
-    font-size: 13px;
-    padding: 16px 24px;
-}
-
-.lg-footer-inner {
-    max-width: 1200px;
-    margin: auto;
+.lg-volver a:hover {
+    color: var(--verde);
 }
 
 /* ---- Responsive ---- */
-@media (max-width: 640px) {
-    .lg-header-inner {
-        flex-direction: column;
-        align-items: flex-start;
+@media (max-width: 860px) {
+    #login-page {
+        grid-template-columns: 1fr;
     }
-    .lg-nav {
-        width: 100%;
-        gap: 14px;
+    .lg-brand {
+        padding: 36px 28px;
+        gap: 24px;
     }
-    .lg-card {
-        padding: 28px 22px;
+    .lg-brand-hero h1 {
+        font-size: 26px;
+    }
+    .lg-brand-list {
+        display: none;
+    }
+    .lg-brand::after {
+        font-size: 160px;
+    }
+}
+
+@media (max-width: 480px) {
+    .lg-form-side {
+        padding: 30px 18px;
     }
     .lg-card h2 {
-        font-size: 22px;
+        font-size: 23px;
     }
 }
 
@@ -351,64 +408,72 @@ body.login-activo {
 
 
 
-<!-- LOGIN -->
+<!-- LOGIN ADMIN -->
 
 <div id="login-section">
 <div id="login-page">
 
-    <!-- Header -->
-    <header class="lg-header">
-        <div class="lg-header-inner">
-            <div class="lg-logo">
-                <span class="lg-logo-icon">🛒</span>
-                <div class="lg-logo-text">
-                    <small>Tienda de Abarrotes</small>
-                    <strong>Don Gil</strong>
-                </div>
+    <!-- Panel de marca (izquierda) -->
+    <aside class="lg-brand">
+        <div class="lg-brand-logo">
+            <span class="mark">DG</span>
+            <div>
+                <small>Tienda de Abarrotes</small>
+                <strong>Don Gil</strong>
             </div>
-            <nav class="lg-nav">
-                <a onclick="irAInicio()">Inicio</a>
-                <a onclick="irAInicio()">Productos</a>
-                <a onclick="irAInicio()">Nosotros</a>
-                <a onclick="irAInicio()">Contacto</a>
-                <a class="lg-btn-login">🔒 Login</a>
-            </nav>
         </div>
-    </header>
 
-    <!-- Tarjeta de login -->
-    <main class="lg-main">
+        <div class="lg-brand-hero">
+            <h1>Panel de Administración</h1>
+            <p>Gestiona tu inventario, ventas y productos desde un solo lugar.</p>
+            <ul class="lg-brand-list">
+                <li>Control de inventario en tiempo real</li>
+                <li>Registro de productos y categorías</li>
+                <li>Alertas de stock y vencimiento</li>
+                <li>Administración de usuarios</li>
+            </ul>
+        </div>
+
+        <div class="lg-brand-foot">
+            © 2026 Tienda de Abarrotes Don Gil
+        </div>
+    </aside>
+
+    <!-- Formulario (derecha) -->
+    <main class="lg-form-side">
         <form class="lg-card" onsubmit="event.preventDefault(); login();">
-            <h2>Iniciar Sesión</h2>
-            <p class="lg-sub">Ingresa a tu cuenta de Don Gil</p>
+            <span class="lg-badge">🔒 Acceso restringido</span>
+            <h2>Iniciar sesión</h2>
+            <p class="lg-sub">Ingresa tus credenciales para acceder al panel.</p>
 
             <div class="lg-field">
-                <label for="login-usuario">Correo electrónico</label>
-                <input id="login-usuario" type="text" placeholder="Ingresa tu correo" autocomplete="username">
+                <label for="login-usuario">Usuario</label>
+                <div class="lg-input-wrap">
+                    <span class="ico">👤</span>
+                    <input id="login-usuario" type="text" placeholder="Ingresa tu usuario" autocomplete="username">
+                </div>
             </div>
 
             <div class="lg-field">
                 <label for="login-password">Contraseña</label>
-                <input id="login-password" type="password" placeholder="Ingresa tu contraseña" autocomplete="current-password">
+                <div class="lg-input-wrap">
+                    <span class="ico">🔑</span>
+                    <input id="login-password" type="password" placeholder="Ingresa tu contraseña" autocomplete="current-password">
+                </div>
             </div>
 
-            <button type="submit" class="lg-btn-submit">Iniciar Sesión</button>
+            <div class="lg-row">
+                <label><input type="checkbox" id="login-recordar"> Recordarme</label>
+                <a onclick="alert('Contacta al administrador para recuperar tu acceso.')">¿Olvidaste tu contraseña?</a>
+            </div>
 
-            <hr class="lg-divider">
+            <button type="submit" class="lg-btn-submit">Ingresar al panel</button>
 
-            <div class="lg-footer-card">
-                ¿No tienes una cuenta?<br>
-                <a onclick="alert('Función de registro no disponible en esta demo')">Crear cuenta</a>
+            <div class="lg-volver">
+                <a onclick="irAInicio()">← Volver a la tienda</a>
             </div>
         </form>
     </main>
-
-    <!-- Footer -->
-    <footer class="lg-footer">
-        <div class="lg-footer-inner">
-            © 2026 Tienda de Abarrotes Don Gil. Todos los derechos reservados.
-        </div>
-    </footer>
 
 </div>
 </div>

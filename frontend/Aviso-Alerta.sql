@@ -297,3 +297,24 @@ SELECT
 FROM alertas a
 INNER JOIN productos p
     ON a.producto_id = p.id;
+
+
+/*===============================================================
+  TABLA NUEVA: mensajes_contacto
+  Justificación: almacena los mensajes enviados desde el
+  formulario público de la página Contacto del sitio web.
+  No existe una tabla equivalente (usuarios = cuentas internas,
+  historial = auditoría del sistema), por lo que se crea esta.
+  Es independiente: no requiere llaves foráneas obligatorias.
+  La aplicación también la crea automáticamente (CREATE IF NOT EXISTS).
+ ===============================================================*/
+CREATE TABLE IF NOT EXISTS mensajes_contacto (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL,
+    correo VARCHAR(100) NOT NULL,
+    telefono VARCHAR(50),
+    asunto VARCHAR(150),
+    mensaje TEXT NOT NULL,
+    estado ENUM('NUEVO','LEIDO','RESPONDIDO') DEFAULT 'NUEVO',
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

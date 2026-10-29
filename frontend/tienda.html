@@ -3,106 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Don Gil - Tienda Online</title>
+    <title>Abarrotes Don Gil - Tu tienda de confianza</title>
     <link rel="stylesheet" href="tienda.css">
 </head>
 <body>
 
-    <!-- ================= BARRA SUPERIOR ================= -->
+    <!-- ========== BARRA SUPERIOR ========== -->
     <div class="top-bar">
-        <span>Envío gratis en compras desde S/ 120 🚚</span>
-        <nav class="top-nav">
-            <a onclick="document.getElementById('seccion-productos').scrollIntoView({behavior:'smooth'})">Productos</a>
-            <a onclick="document.getElementById('footer').scrollIntoView({behavior:'smooth'})">Nosotros</a>
-            <a onclick="document.getElementById('footer').scrollIntoView({behavior:'smooth'})">Contacto</a>
-        </nav>
+        <div class="contenedor">
+            <span>🚚 Envío gratis en compras desde S/ 120</span>
+            <nav class="top-nav">
+                <a href="contacto.html">📞 (01) 555-1234</a>
+                <a href="contacto.html">✉️ contacto@dongil.pe</a>
+            </nav>
+        </div>
     </div>
 
-    <!-- ================= HEADER ================= -->
+    <!-- ========== HEADER / MENÚ ========== -->
     <header class="header">
         <div class="header-inner">
             <a href="tienda.html" class="logo">
                 <span class="logo-mark">DG</span>
-                <span class="logo-text">Abarrotes <strong>Don Gil</strong></span>
+                <span class="logo-text">
+                    <small>Tienda de Abarrotes</small>
+                    <strong>Don Gil</strong>
+                </span>
             </a>
 
-            <div class="search-box">
-                <input type="text" id="buscador" placeholder="Busca productos, marcas y más...">
-                <button id="btnBuscar" aria-label="Buscar">🔍</button>
-            </div>
+            <ul class="menu" id="menuPrincipal">
+                <li><a href="tienda.html" class="activo">Inicio</a></li>
+                <li><a href="productos.html">Productos</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
 
             <div class="header-actions">
-                <a href="index.html" class="btn-login">👤 Mi cuenta</a>
-                <button class="btn-cart" id="btnCarrito">
-                    🛒 <span class="cart-count" id="cartCount">0</span>
-                </button>
+                <a href="index.html" class="btn-login">👤 Acceso</a>
+                <button class="btn-cart" id="btnCarrito">🛒 <span class="cart-count" id="cartCount">0</span></button>
+                <button class="menu-toggle" id="menuToggle" aria-label="Menú">☰</button>
             </div>
         </div>
     </header>
 
-    <!-- ================= BANNER ================= -->
+    <!-- ========== HERO ========== -->
     <section class="hero">
-        <div class="hero-content">
-            <h1>Las mejores ofertas en abarrotes</h1>
-            <p>Productos frescos y de calidad al mejor precio. ¡Compra desde casa!</p>
-            <button class="hero-btn" onclick="document.getElementById('seccion-productos').scrollIntoView({behavior:'smooth'})">
-                Ver productos
-            </button>
+        <div class="contenedor hero-grid">
+            <div>
+                <h1 data-anim-hero="1">Todo para tu <span>despensa</span>, al mejor precio</h1>
+                <p data-anim-hero="2">En Abarrotes Don Gil encuentras productos frescos y de calidad para el hogar. Compra fácil, rápido y seguro.</p>
+                <div class="hero-btns" data-anim-hero="3">
+                    <a href="productos.html" class="btn btn-amarillo">Ver catálogo</a>
+                    <a href="nosotros.html" class="btn btn-blanco">Conócenos</a>
+                </div>
+            </div>
+            <div class="hero-visual" data-anim-hero="3">🏪</div>
         </div>
     </section>
 
-    <!-- ================= FILTROS + PRODUCTOS ================= -->
-    <main class="layout">
-        <!-- Sidebar categorías -->
-        <aside class="sidebar">
-            <h3>Categorías</h3>
-            <ul id="listaCategorias">
-                <li class="activo" data-id="todas">Todos los productos</li>
-            </ul>
-        </aside>
-
-        <!-- Grid de productos -->
-        <section class="productos-wrap" id="seccion-productos">
-            <div class="productos-header">
-                <h2 id="tituloSeccion">Todos los productos</h2>
-                <span id="contadorProductos" class="contador"></span>
+    <!-- ========== VENTAJAS ========== -->
+    <section class="ventajas">
+        <div class="contenedor ventajas-grid">
+            <div class="ventaja" data-anim="up" data-anim-delay="1">
+                <div class="icono">🚚</div>
+                <strong>Envío a domicilio</strong>
+                <small>Rápido y seguro</small>
             </div>
-
-            <div class="grid-productos" id="gridProductos">
-                <!-- Las tarjetas se inyectan desde tienda.js -->
+            <div class="ventaja" data-anim="up" data-anim-delay="2">
+                <div class="icono">💳</div>
+                <strong>Pago flexible</strong>
+                <small>Efectivo, tarjeta o yape</small>
             </div>
+            <div class="ventaja" data-anim="up" data-anim-delay="3">
+                <div class="icono">✅</div>
+                <strong>Productos frescos</strong>
+                <small>Calidad garantizada</small>
+            </div>
+            <div class="ventaja" data-anim="up" data-anim-delay="4">
+                <div class="icono">💰</div>
+                <strong>Mejores precios</strong>
+                <small>Ofertas todos los días</small>
+            </div>
+        </div>
+    </section>
 
-            <p id="mensajeVacio" class="mensaje-vacio" style="display:none;">
-                No se encontraron productos.
-            </p>
-        </section>
-    </main>
+    <!-- ========== CATEGORÍAS ========== -->
+    <section class="seccion contenedor">
+        <div class="seccion-titulo" data-anim="up">
+            <span>Explora</span>
+            <h2>Nuestras categorías</h2>
+            <p>Encuentra todo lo que necesitas organizado por secciones.</p>
+        </div>
+        <div class="cats-grid" id="gridCategorias"></div>
+    </section>
 
-    <!-- ================= FOOTER ================= -->
-    <footer class="footer" id="footer">
+    <!-- ========== PRODUCTOS DESTACADOS ========== -->
+    <section class="seccion" style="background:var(--gris-bg)">
+        <div class="contenedor">
+            <div class="seccion-titulo" data-anim="up">
+                <span>Lo más buscado</span>
+                <h2>Productos destacados</h2>
+                <p>Una selección de productos con los mejores precios de la semana.</p>
+            </div>
+            <div class="grid-productos" id="gridDestacados"></div>
+            <div style="text-align:center;margin-top:36px" data-anim="fade">
+                <a href="productos.html" class="btn btn-verde">Ver todos los productos</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECCIÓN INFORMATIVA ========== -->
+    <section class="seccion contenedor">
+        <div class="info-split">
+            <div class="info-visual" data-anim="left">🧺</div>
+            <div class="info-text" data-anim="right">
+                <h2>Tu tienda de abarrotes de confianza</h2>
+                <p>Somos un negocio familiar comprometido con ofrecer productos de calidad a precios justos. Atendemos a nuestra comunidad con dedicación desde hace años.</p>
+                <ul class="lista-check">
+                    <li>Amplio surtido de abarrotes y productos del hogar</li>
+                    <li>Atención personalizada y cercana</li>
+                    <li>Control de inventario para stock siempre disponible</li>
+                    <li>Alertas de vencimiento para productos siempre frescos</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CTA ========== -->
+    <section class="cta">
+        <div class="contenedor" data-anim="zoom">
+            <h2>¿Listo para hacer tu pedido?</h2>
+            <p>Explora nuestro catálogo completo y arma tu compra en minutos.</p>
+            <a href="productos.html" class="btn btn-amarillo">Comprar ahora</a>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
         <div class="footer-cols">
+            <div class="footer-logo">
+                <h4>Abarrotes <strong>Don Gil</strong></h4>
+                <p>Tu tienda de confianza para el hogar. Calidad, frescura y los mejores precios.</p>
+            </div>
             <div>
-                <h4>Abarrotes Don Gil</h4>
-                <p>Tu tienda de confianza para el hogar.</p>
+                <h4>Navegación</h4>
+                <a href="tienda.html">Inicio</a>
+                <a href="productos.html">Productos</a>
+                <a href="nosotros.html">Nosotros</a>
+                <a href="contacto.html">Contacto</a>
             </div>
             <div>
                 <h4>Ayuda</h4>
-                <p>Preguntas frecuentes</p>
-                <p>Métodos de pago</p>
-                <p>Envíos y entregas</p>
+                <a href="contacto.html">Preguntas frecuentes</a>
+                <a href="contacto.html">Métodos de pago</a>
+                <a href="contacto.html">Envíos y entregas</a>
             </div>
             <div>
                 <h4>Contacto</h4>
+                <p>📍 Av. Los Abarrotes 123, Lima</p>
                 <p>📞 (01) 555-1234</p>
                 <p>✉️ contacto@dongil.pe</p>
             </div>
         </div>
         <div class="footer-bottom">
-            © 2026 Sistema de Inventario Don Gil. Proyecto académico.
+            © 2026 Tienda de Abarrotes Don Gil. Todos los derechos reservados.
         </div>
     </footer>
 
-    <!-- ================= CARRITO LATERAL ================= -->
+    <!-- ========== CARRITO LATERAL ========== -->
     <div class="carrito-overlay" id="carritoOverlay"></div>
     <aside class="carrito-panel" id="carritoPanel">
         <div class="carrito-head">
@@ -115,12 +182,12 @@
                 <span>Total:</span>
                 <strong id="carritoTotal">S/ 0.00</strong>
             </div>
-            <button class="btn-pagar" onclick="alert('Función de pago de demostración')">
-                Finalizar compra
-            </button>
+            <button class="btn-pagar" onclick="alert('Función de pago de demostración')">Finalizar compra</button>
         </div>
     </aside>
 
-    <script src="tienda.js"></script>
+    <script src="animations.js"></script>
+    <script src="app.js"></script>
+    <script src="inicio.js"></script>
 </body>
 </html>

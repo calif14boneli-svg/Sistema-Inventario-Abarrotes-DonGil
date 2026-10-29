@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - Abarrotes Don Gil</title>
+    <link rel="stylesheet" href="tienda.css">
+</head>
+<body>
+
+    <!-- ========== BARRA SUPERIOR ========== -->
+    <div class="top-bar">
+        <div class="contenedor">
+            <span>🚚 Envío gratis en compras desde S/ 120</span>
+            <nav class="top-nav">
+                <a href="contacto.html">📞 (01) 555-1234</a>
+                <a href="contacto.html">✉️ contacto@dongil.pe</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- ========== HEADER / MENÚ ========== -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="tienda.html" class="logo">
+                <span class="logo-mark">DG</span>
+                <span class="logo-text">
+                    <small>Tienda de Abarrotes</small>
+                    <strong>Don Gil</strong>
+                </span>
+            </a>
+            <ul class="menu" id="menuPrincipal">
+                <li><a href="tienda.html">Inicio</a></li>
+                <li><a href="productos.html">Productos</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="contacto.html" class="activo">Contacto</a></li>
+            </ul>
+            <div class="header-actions">
+                <a href="index.html" class="btn-login">👤 Acceso</a>
+                <button class="btn-cart" id="btnCarrito">🛒 <span class="cart-count" id="cartCount">0</span></button>
+                <button class="menu-toggle" id="menuToggle" aria-label="Menú">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== HERO ========== -->
+    <section class="hero" style="padding:55px 0">
+        <div class="contenedor">
+            <h1 style="font-size:36px;margin:0">Contáctanos</h1>
+            <p style="margin:10px 0 0">¿Tienes una consulta o un pedido especial? Escríbenos.</p>
+        </div>
+    </section>
+
+    <!-- ========== CONTACTO ========== -->
+    <section class="seccion contenedor">
+        <div class="contacto-grid">
+
+            <!-- Formulario -->
+            <div data-anim="left">
+                <h2 style="margin-bottom:18px">Envíanos un mensaje</h2>
+                <form id="formContacto">
+                    <div class="form-grupo">
+                        <label for="c-nombre">Nombre completo *</label>
+                        <input type="text" id="c-nombre" placeholder="Tu nombre" required>
+                    </div>
+                    <div class="form-grupo">
+                        <label for="c-correo">Correo electrónico *</label>
+                        <input type="email" id="c-correo" placeholder="tucorreo@ejemplo.com" required>
+                    </div>
+                    <div class="form-grupo">
+                        <label for="c-telefono">Teléfono</label>
+                        <input type="text" id="c-telefono" placeholder="Opcional">
+                    </div>
+                    <div class="form-grupo">
+                        <label for="c-asunto">Asunto</label>
+                        <input type="text" id="c-asunto" placeholder="¿Sobre qué nos escribes?">
+                    </div>
+                    <div class="form-grupo">
+                        <label for="c-mensaje">Mensaje *</label>
+                        <textarea id="c-mensaje" placeholder="Escribe tu mensaje aquí..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-verde" style="width:100%">Enviar mensaje</button>
+                    <div class="form-msg" id="formMsg"></div>
+                </form>
+            </div>
+
+            <!-- Datos + mapa -->
+            <div data-anim="right">
+                <h2 style="margin-bottom:18px">Información de contacto</h2>
+                <div class="contacto-datos">
+                    <div class="dato-item">
+                        <div class="icono">📍</div>
+                        <div><strong>Dirección</strong><span>Av. Los Abarrotes 123, Lima, Perú</span></div>
+                    </div>
+                    <div class="dato-item">
+                        <div class="icono">📞</div>
+                        <div><strong>Teléfono</strong><span>(01) 555-1234 / 987 654 321</span></div>
+                    </div>
+                    <div class="dato-item">
+                        <div class="icono">✉️</div>
+                        <div><strong>Correo</strong><span>contacto@dongil.pe</span></div>
+                    </div>
+                    <div class="dato-item">
+                        <div class="icono">🕒</div>
+                        <div><strong>Horario</strong><span>Lun - Sáb: 8:00 a 21:00 · Dom: 9:00 a 14:00</span></div>
+                    </div>
+                </div>
+
+                <div class="mapa">
+                    <iframe
+                        src="https://www.openstreetmap.org/export/embed.html?bbox=-77.05%2C-12.06%2C-77.00%2C-12.02&amp;layer=mapnik"
+                        loading="lazy"
+                        title="Ubicación de la tienda"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="footer-cols">
+            <div class="footer-logo">
+                <h4>Abarrotes <strong>Don Gil</strong></h4>
+                <p>Tu tienda de confianza para el hogar. Calidad, frescura y los mejores precios.</p>
+            </div>
+            <div>
+                <h4>Navegación</h4>
+                <a href="tienda.html">Inicio</a>
+                <a href="productos.html">Productos</a>
+                <a href="nosotros.html">Nosotros</a>
+                <a href="contacto.html">Contacto</a>
+            </div>
+            <div>
+                <h4>Ayuda</h4>
+                <a href="contacto.html">Preguntas frecuentes</a>
+                <a href="contacto.html">Métodos de pago</a>
+                <a href="contacto.html">Envíos y entregas</a>
+            </div>
+            <div>
+                <h4>Contacto</h4>
+                <p>📍 Av. Los Abarrotes 123, Lima</p>
+                <p>📞 (01) 555-1234</p>
+                <p>✉️ contacto@dongil.pe</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2026 Tienda de Abarrotes Don Gil. Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <!-- ========== CARRITO LATERAL ========== -->
+    <div class="carrito-overlay" id="carritoOverlay"></div>
+    <aside class="carrito-panel" id="carritoPanel">
+        <div class="carrito-head">
+            <h3>Mi carrito</h3>
+            <button id="cerrarCarrito" aria-label="Cerrar">✖</button>
+        </div>
+        <div class="carrito-items" id="carritoItems"></div>
+        <div class="carrito-footer">
+            <div class="carrito-total">
+                <span>Total:</span>
+                <strong id="carritoTotal">S/ 0.00</strong>
+            </div>
+            <button class="btn-pagar" onclick="alert('Función de pago de demostración')">Finalizar compra</button>
+        </div>
+    </aside>
+
+    <script src="animations.js"></script>
+    <script src="app.js"></script>
+    <script src="contacto.js"></script>
+</body>
+</html>
