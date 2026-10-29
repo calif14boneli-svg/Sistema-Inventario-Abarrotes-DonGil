@@ -107,35 +107,310 @@ th
 }
 
 
-#login-section 
-{
-    max-width:400px;
-    margin:100px auto;
-}
-
-
 #main-content 
 {
     display:none;
 }
 
 
+/* ================= LOGIN ESTILO DON GIL ================= */
+
+:root {
+    --verde: #1f8a3b;
+    --verde-osc: #166a2d;
+    --verde-txt: #1f8a3b;
+    --amarillo: #f6c600;
+}
+
+/* Cuando se muestra el login, la página ocupa toda la pantalla */
+body.login-activo {
+    margin: 0;
+    padding: 0;
+    background: #f1f2f1;
+}
+
+#login-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ---- Header ---- */
+.lg-header {
+    background: var(--verde);
+    border-bottom: 4px solid var(--amarillo);
+    color: #fff;
+}
+
+.lg-header-inner {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.lg-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.lg-logo-icon {
+    font-size: 26px;
+    background: rgba(255, 255, 255, .15);
+    padding: 6px 9px;
+    border-radius: 8px;
+}
+
+.lg-logo-text small {
+    display: block;
+    font-size: 12px;
+    opacity: .9;
+    font-weight: normal;
+    margin: 0;
+}
+
+.lg-logo-text strong {
+    display: block;
+    font-size: 20px;
+    color: var(--amarillo);
+}
+
+.lg-nav {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    flex-wrap: wrap;
+}
+
+.lg-nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.lg-nav a:hover {
+    text-decoration: underline;
+}
+
+.lg-nav .lg-btn-login {
+    background: var(--verde-osc);
+    border: 1px solid rgba(255, 255, 255, .5);
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.lg-nav .lg-btn-login:hover {
+    background: #0f5222;
+    text-decoration: none;
+}
+
+/* ---- Contenido central ---- */
+.lg-main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 16px;
+}
+
+.lg-card {
+    background: #fff;
+    width: 100%;
+    max-width: 420px;
+    padding: 36px 34px;
+    border-radius: 10px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, .08);
+}
+
+.lg-card h2 {
+    text-align: center;
+    color: var(--verde-txt);
+    font-size: 26px;
+    margin: 0 0 6px;
+}
+
+.lg-card .lg-sub {
+    text-align: center;
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 24px;
+}
+
+.lg-field {
+    margin-bottom: 18px;
+}
+
+.lg-field label {
+    display: block;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: #222;
+}
+
+.lg-field input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #d5d5d5;
+    border-radius: 6px;
+    font-size: 15px;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.lg-field input:focus {
+    outline: none;
+    border-color: var(--verde);
+    box-shadow: 0 0 0 3px rgba(31, 138, 59, .15);
+}
+
+.lg-btn-submit {
+    width: 100%;
+    background: var(--verde);
+    color: #fff;
+    border: none;
+    padding: 13px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 6px 0 0;
+}
+
+.lg-btn-submit:hover {
+    background: var(--verde-osc);
+}
+
+.lg-divider {
+    border: none;
+    border-top: 1px solid #e3e3e3;
+    margin: 24px 0 18px;
+}
+
+.lg-footer-card {
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+}
+
+.lg-footer-card a {
+    color: var(--verde-txt);
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 4px;
+}
+
+.lg-footer-card a:hover {
+    text-decoration: underline;
+}
+
+/* ---- Footer ---- */
+.lg-footer {
+    background: var(--verde);
+    color: #fff;
+    text-align: left;
+    font-size: 13px;
+    padding: 16px 24px;
+}
+
+.lg-footer-inner {
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 640px) {
+    .lg-header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .lg-nav {
+        width: 100%;
+        gap: 14px;
+    }
+    .lg-card {
+        padding: 28px 22px;
+    }
+    .lg-card h2 {
+        font-size: 22px;
+    }
+}
+
+
 </style>
 </head>
-<body>
+<body class="login-activo">
 
 
 
 <!-- LOGIN -->
 
-<div id="login-section" class="box">
-<h2>Acceso al Sistema</h2>
-<input id="login-usuario" placeholder="Usuario">
-<input 
-id="login-password"
-type="password"
-placeholder="Contraseña">
-<button onclick="login()"> Ingresar </button>
+<div id="login-section">
+<div id="login-page">
+
+    <!-- Header -->
+    <header class="lg-header">
+        <div class="lg-header-inner">
+            <div class="lg-logo">
+                <span class="lg-logo-icon">🛒</span>
+                <div class="lg-logo-text">
+                    <small>Tienda de Abarrotes</small>
+                    <strong>Don Gil</strong>
+                </div>
+            </div>
+            <nav class="lg-nav">
+                <a onclick="irAInicio()">Inicio</a>
+                <a onclick="irAInicio()">Productos</a>
+                <a onclick="irAInicio()">Nosotros</a>
+                <a onclick="irAInicio()">Contacto</a>
+                <a class="lg-btn-login">🔒 Login</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Tarjeta de login -->
+    <main class="lg-main">
+        <form class="lg-card" onsubmit="event.preventDefault(); login();">
+            <h2>Iniciar Sesión</h2>
+            <p class="lg-sub">Ingresa a tu cuenta de Don Gil</p>
+
+            <div class="lg-field">
+                <label for="login-usuario">Correo electrónico</label>
+                <input id="login-usuario" type="text" placeholder="Ingresa tu correo" autocomplete="username">
+            </div>
+
+            <div class="lg-field">
+                <label for="login-password">Contraseña</label>
+                <input id="login-password" type="password" placeholder="Ingresa tu contraseña" autocomplete="current-password">
+            </div>
+
+            <button type="submit" class="lg-btn-submit">Iniciar Sesión</button>
+
+            <hr class="lg-divider">
+
+            <div class="lg-footer-card">
+                ¿No tienes una cuenta?<br>
+                <a onclick="alert('Función de registro no disponible en esta demo')">Crear cuenta</a>
+            </div>
+        </form>
+    </main>
+
+    <!-- Footer -->
+    <footer class="lg-footer">
+        <div class="lg-footer-inner">
+            © 2026 Tienda de Abarrotes Don Gil. Todos los derechos reservados.
+        </div>
+    </footer>
+
+</div>
 </div>
 
 
@@ -145,6 +420,12 @@ placeholder="Contraseña">
 <div style="display:flex;justify-content:space-between;align-items:center;">
 <h1>Inventario de Abarrotes</h1>
 <div>
+<button 
+style="background:#e2001a;width:auto"
+onclick="irAInicio()">
+Inicio 
+</button>
+
 <button 
 style="background:#007bff;width:auto"
 onclick="toggleUsuarios()">
@@ -442,6 +723,12 @@ if(token){
 }
 
 
+// Redirige a la tienda/catálogo público
+function irAInicio(){
+    window.location.href = "tienda.html";
+}
+
+
 
 
 
@@ -526,6 +813,8 @@ async function login(){
 
 function mostrarApp()
 {
+
+    document.body.classList.remove("login-activo");
 
     document.getElementById(
         "login-section"

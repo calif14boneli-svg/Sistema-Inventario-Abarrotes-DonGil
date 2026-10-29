@@ -34,8 +34,11 @@ app.use(express.urlencoded({
 }));
 
 
-// Archivos estáticos frontend
+// Archivos estáticos del backend (index.html del sistema de inventario)
 app.use(express.static(__dirname));
+
+// Archivos estáticos del frontend (tienda pública: tienda.html/css/js)
+app.use(express.static(path.join(__dirname, "..", "frontend")));
 
 
 
@@ -178,6 +181,91 @@ app.get(
 );
 
 
+
+
+// ================= TIENDA PÚBLICA (sin token) =================
+// Catálogo público consumido por tienda.html.
+// Reutiliza las tablas existentes: productos, categorias, proveedores.
+
+app.get("/tienda/productos", async (req, res) => {
+
+    try {
+
+        const sql = `
+            SELECT
+                p.id,
+                p.nombre,
+                p.marca,
+                p.precio_venta,
+                p.stock_actual,
+                c.nombre AS categoria,
+                pr.nombre AS proveedor
+
+            FROM productos p
+
+            LEFT JOIN categorias c
+                ON p.categoria_id = c.id
+
+            LEFT JOIN proveedores pr
+                ON p.proveedor_id = pr.id
+
+            WHERE p.estado = TRUE OR p.estado IS NULL
+
+            ORDER BY p.nombre ASC
+        `;
+
+        const [rows] = await db.query(sql);
+
+        res.json({
+            success: true,
+            data: rows
+        });
+
+    } catch (error) {
+
+        console.error(
+            "Error en /tienda/productos:",
+            error.message
+        );
+
+        res.status(500).json({
+            success: false,
+            message: "Error al obtener el catálogo"
+        });
+
+    }
+
+});
+
+
+app.get("/tienda/categorias", async (req, res) => {
+
+    try {
+
+        const [rows] = await db.query(
+            "SELECT id, nombre FROM categorias ORDER BY nombre ASC"
+        );
+
+        res.json({
+            success: true,
+            data: rows
+        });
+
+    } catch (error) {
+
+        console.error(
+            "Error en /tienda/categorias:",
+            error.message
+        );
+
+        res.status(500).json({
+            success: false,
+            message: "Error al obtener categorías"
+        });
+
+    }
+
+});
 
 
 // ================= MANEJO DE ERRORES =================

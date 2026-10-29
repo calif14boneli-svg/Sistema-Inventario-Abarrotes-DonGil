@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Don Gil - Tienda Online</title>
+    <link rel="stylesheet" href="tienda.css">
+</head>
+<body>
+
+    <!-- ================= BARRA SUPERIOR ================= -->
+    <div class="top-bar">
+        <span>Envío gratis en compras desde S/ 120 🚚</span>
+        <nav class="top-nav">
+            <a onclick="document.getElementById('seccion-productos').scrollIntoView({behavior:'smooth'})">Productos</a>
+            <a onclick="document.getElementById('footer').scrollIntoView({behavior:'smooth'})">Nosotros</a>
+            <a onclick="document.getElementById('footer').scrollIntoView({behavior:'smooth'})">Contacto</a>
+        </nav>
+    </div>
+
+    <!-- ================= HEADER ================= -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="tienda.html" class="logo">
+                <span class="logo-mark">DG</span>
+                <span class="logo-text">Abarrotes <strong>Don Gil</strong></span>
+            </a>
+
+            <div class="search-box">
+                <input type="text" id="buscador" placeholder="Busca productos, marcas y más...">
+                <button id="btnBuscar" aria-label="Buscar">🔍</button>
+            </div>
+
+            <div class="header-actions">
+                <a href="index.html" class="btn-login">👤 Mi cuenta</a>
+                <button class="btn-cart" id="btnCarrito">
+                    🛒 <span class="cart-count" id="cartCount">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ================= BANNER ================= -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Las mejores ofertas en abarrotes</h1>
+            <p>Productos frescos y de calidad al mejor precio. ¡Compra desde casa!</p>
+            <button class="hero-btn" onclick="document.getElementById('seccion-productos').scrollIntoView({behavior:'smooth'})">
+                Ver productos
+            </button>
+        </div>
+    </section>
+
+    <!-- ================= FILTROS + PRODUCTOS ================= -->
+    <main class="layout">
+        <!-- Sidebar categorías -->
+        <aside class="sidebar">
+            <h3>Categorías</h3>
+            <ul id="listaCategorias">
+                <li class="activo" data-id="todas">Todos los productos</li>
+            </ul>
+        </aside>
+
+        <!-- Grid de productos -->
+        <section class="productos-wrap" id="seccion-productos">
+            <div class="productos-header">
+                <h2 id="tituloSeccion">Todos los productos</h2>
+                <span id="contadorProductos" class="contador"></span>
+            </div>
+
+            <div class="grid-productos" id="gridProductos">
+                <!-- Las tarjetas se inyectan desde tienda.js -->
+            </div>
+
+            <p id="mensajeVacio" class="mensaje-vacio" style="display:none;">
+                No se encontraron productos.
+            </p>
+        </section>
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer" id="footer">
+        <div class="footer-cols">
+            <div>
+                <h4>Abarrotes Don Gil</h4>
+                <p>Tu tienda de confianza para el hogar.</p>
+            </div>
+            <div>
+                <h4>Ayuda</h4>
+                <p>Preguntas frecuentes</p>
+                <p>Métodos de pago</p>
+                <p>Envíos y entregas</p>
+            </div>
+            <div>
+                <h4>Contacto</h4>
+                <p>📞 (01) 555-1234</p>
+                <p>✉️ contacto@dongil.pe</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2026 Sistema de Inventario Don Gil. Proyecto académico.
+        </div>
+    </footer>
+
+    <!-- ================= CARRITO LATERAL ================= -->
+    <div class="carrito-overlay" id="carritoOverlay"></div>
+    <aside class="carrito-panel" id="carritoPanel">
+        <div class="carrito-head">
+            <h3>Mi carrito</h3>
+            <button id="cerrarCarrito" aria-label="Cerrar">✖</button>
+        </div>
+        <div class="carrito-items" id="carritoItems"></div>
+        <div class="carrito-footer">
+            <div class="carrito-total">
+                <span>Total:</span>
+                <strong id="carritoTotal">S/ 0.00</strong>
+            </div>
+            <button class="btn-pagar" onclick="alert('Función de pago de demostración')">
+                Finalizar compra
+            </button>
+        </div>
+    </aside>
+
+    <script src="tienda.js"></script>
+</body>
+</html>
