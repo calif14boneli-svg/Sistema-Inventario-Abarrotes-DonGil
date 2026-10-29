@@ -21,6 +21,9 @@ const authRoutes = require("./routes/auth.routes");
 const productosRoutes = require("./routes/productos.routes");
 const usuariosRoutes = require("./routes/usuarios.routes");
 const categoriasRoutes = require("./routes/categorias.routes");
+const clientesRoutes = require("./routes/clientes.routes");
+const cotizacionesRoutes = require("./routes/cotizaciones.routes");
+const ventasRoutes = require("./routes/ventas.routes");
 
 
 // ================= MIDDLEWARE =================
@@ -108,6 +111,15 @@ app.use("/productos", verificarToken, productosRoutes);
 
 // Categorías
 app.use("/categorias", verificarToken, categoriasRoutes);
+
+// Clientes
+app.use("/clientes", verificarToken, clientesRoutes);
+
+// Cotizaciones
+app.use("/cotizaciones", verificarToken, cotizacionesRoutes);
+
+// Ventas
+app.use("/ventas", verificarToken, ventasRoutes);
 
 
 

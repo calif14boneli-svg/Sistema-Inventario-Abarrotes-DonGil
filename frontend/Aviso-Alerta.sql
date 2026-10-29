@@ -318,3 +318,76 @@ CREATE TABLE IF NOT EXISTS mensajes_contacto (
     estado ENUM('NUEVO','LEIDO','RESPONDIDO') DEFAULT 'NUEVO',
     fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+
+/*===============================================================
+  TABLAS NUEVAS DEL MÓDULO ADMINISTRATIVO (Clientes / Cotizaciones / Ventas)
+  La aplicación también las crea automáticamente al arrancar
+  (CREATE TABLE IF NOT EXISTS en cada routes/*.routes.js).
+  Se documentan aquí para referencia y despliegue manual.
+ ===============================================================*/
+
+/* CLIENTES */
+CREATE TABLE IF NOT EXISTS clientes (
+    id_cliente INT PRIMARY KEY AUTO_INCREMENT,
+    codigo_cliente VARCHAR(30) UNIQUE,
+    nombre_completo VARCHAR(150) NOT NULL,
+    email VARCHAR(120),
+    telefono VARCHAR(40),
+    tipo_documento VARCHAR(20),
+    numero_documento VARCHAR(40),
+    direccion VARCHAR(200),
+    fecha_registro DATE DEFAULT (CURDATE()),
+    ultima_compra DATE NULL,
+    frecuencia_compra VARCHAR(40) DEFAULT 'Nuevo',
+    estado ENUM('Activo','Inactivo') DEFAULT 'Activo',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+/* COTIZACIONES  (una cotización pertenece a un cliente) */
+CREATE TABLE IF NOT EXISTS cotizaciones (
+    id_cotizacion INT PRIMARY KEY AUTO_INCREMENT,
+    codigo_cotizacion VARCHAR(30) UNIQUE,
+    id_cliente INT,
+    contacto VARCHAR(120),
+    subtotal DECIMAL(10,2) DEFAULT 0,
+    descuento DECIMAL(10,2) DEFAULT 0,
+    impuesto DECIMAL(10,2) DEFAULT 0,
+    total DECIMAL(10,2) DEFAULT 0,
+    estado ENUM('Pendiente','Aprobada','Rechazada','Vencida','Convertida') DEFAULT 'Pendiente',
+    fecha_cotizacion DATE DEFAULT (CURDATE()),
+    fecha_vencimiento DATE NULL,
+    observaciones TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT fk_cotizacion_cliente FOREIGN KEY (id_cliente)
+        REFERENCES clientes(id_cliente)
+        ON UPDATE CASCADE ON DELETE SET NULL
+);
+
+/* VENTAS  (pertenece a un cliente; puede originarse de una cotización) */
+CREATE TABLE IF NOT EXISTS ventas (
+    id_venta INT PRIMARY KEY AUTO_INCREMENT,
+    codigo_venta VARCHAR(30) UNIQUE,
+    id_cliente INT,
+    id_cotizacion INT NULL,
+    contacto VARCHAR(120),
+    subtotal DECIMAL(10,2) DEFAULT 0,
+    descuento DECIMAL(10,2) DEFAULT 0,
+    impuesto DECIMAL(10,2) DEFAULT 0,
+    total DECIMAL(10,2) DEFAULT 0,
+    metodo_pago VARCHAR(40) DEFAULT 'Efectivo',
+    estado_pago ENUM('Pagado','Pendiente','Anulado') DEFAULT 'Pagado',
+    fecha_venta DATE DEFAULT (CURDATE()),
+    fecha_conversion DATETIME NULL,
+    observaciones TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT fk_venta_cliente FOREIGN KEY (id_cliente)
+        REFERENCES clientes(id_cliente)
+        ON UPDATE CASCADE ON DELETE SET NULL,
+    CONSTRAINT fk_venta_cotizacion FOREIGN KEY (id_cotizacion)
+        REFERENCES cotizaciones(id_cotizacion)
+        ON UPDATE CASCADE ON DELETE SET NULL
+);

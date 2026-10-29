@@ -1,6 +1,52 @@
 const db = require("../db");
 
 
+// ================= TRADUCCIÓN DE ERRORES DE MYSQL A MENSAJE CLARO =================
+// Convierte el error técnico de la base de datos en una explicación breve
+// y entendible para el usuario (ej. texto donde va número, FK inexistente, etc.)
+function traducirErrorProducto(error) {
+
+    const code = error && error.code;
+    const msg = (error && error.sqlMessage) ? error.sqlMessage : (error ? error.message : "");
+
+    // Valor de tipo incorrecto (ej. escribir texto en un campo numérico)
+    if (code === "ER_TRUNCATED_WRONG_VALUE" || code === "ER_TRUNCATED_WRONG_VALUE_FOR_FIELD" ||
+        code === "WARN_DATA_TRUNCATED" || /incorrect (integer|decimal|date) value/i.test(msg)) {
+        if (/proveedor_id/i.test(msg)) return "El campo 'Proveedor ID' debe ser un número (el ID de un proveedor), no texto.";
+        if (/categoria_id/i.test(msg)) return "El campo 'Categoría' no es válido. Selecciona una categoría de la lista.";
+        if (/precio/i.test(msg)) return "Los precios deben ser valores numéricos (sin letras ni símbolos).";
+        if (/cantidad|stock/i.test(msg)) return "La cantidad y el stock deben ser números enteros.";
+        if (/fecha/i.test(msg)) return "Alguna fecha no tiene un formato válido (usa el selector de fecha).";
+        return "Uno de los campos recibió un tipo de dato incorrecto (por ejemplo, texto donde se espera un número).";
+    }
+
+    // Llave foránea: el proveedor o la categoría no existe
+    if (code === "ER_NO_REFERENCED_ROW" || code === "ER_NO_REFERENCED_ROW_2") {
+        if (/proveedor/i.test(msg)) return "El proveedor indicado no existe. Usa el ID de un proveedor registrado.";
+        if (/categor/i.test(msg)) return "La categoría indicada no existe. Selecciona una categoría válida.";
+        return "Se hace referencia a un registro que no existe (proveedor o categoría inválido).";
+    }
+
+    // Valor duplicado (ej. código de barras único repetido)
+    if (code === "ER_DUP_ENTRY") {
+        if (/codigo_barras/i.test(msg)) return "Ya existe un producto con ese código de barras. Debe ser único.";
+        return "Ya existe un registro con un valor único repetido (revisa el código de barras).";
+    }
+
+    // Campo obligatorio vacío
+    if (code === "ER_BAD_NULL_ERROR") {
+        return "Falta completar un campo obligatorio.";
+    }
+
+    // Valor demasiado largo para la columna
+    if (code === "ER_DATA_TOO_LONG") {
+        return "Uno de los campos tiene más caracteres de los permitidos.";
+    }
+
+    // Fallback: mensaje genérico pero con pista técnica
+    return "No se pudo guardar el producto. Detalle: " + (msg || "error desconocido");
+}
+
 
 // ================= OBTENER TODOS LOS PRODUCTOS =================
 
@@ -275,11 +321,11 @@ exports.crearProducto = async (req, res) => {
         );
 
 
-        res.status(500).json({
+        res.status(400).json({
 
             success: false,
 
-            message: "Error al crear producto"
+            message: traducirErrorProducto(error)
 
         });
 
@@ -320,13 +366,16 @@ exports.actualizarProducto = async (req, res) => {
             numero_documento,
             fecha_elaboracion,
             precio_costo,
-            precio_venta
+            precio_venta,
+            estado
 
 
         } = req.body;
 
 
 
+        // El campo `estado` es opcional: si no se envía, se conserva el actual.
+        // (COALESCE mantiene el valor existente cuando el parámetro es NULL)
         const sql = `
 
             UPDATE productos
@@ -357,7 +406,9 @@ exports.actualizarProducto = async (req, res) => {
 
                 precio_costo = ?,
 
-                precio_venta = ?
+                precio_venta = ?,
+
+                estado = COALESCE(?, estado)
 
 
             WHERE id = ?
@@ -381,6 +432,7 @@ exports.actualizarProducto = async (req, res) => {
             fecha_elaboracion,
             precio_costo,
             precio_venta,
+            (estado === undefined ? null : estado),
             id
 
         ];
@@ -413,11 +465,11 @@ exports.actualizarProducto = async (req, res) => {
         );
 
 
-        res.status(500).json({
+        res.status(400).json({
 
             success: false,
 
-            message: "Error al actualizar producto"
+            message: traducirErrorProducto(error)
 
         });
 

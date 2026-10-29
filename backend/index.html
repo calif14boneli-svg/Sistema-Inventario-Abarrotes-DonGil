@@ -402,6 +402,744 @@ body.login-activo {
 }
 
 
+/* ======================================================
+   PANEL ADMIN - LAYOUT DASHBOARD (estilo imagen)
+   Reutiliza la logica JS existente; solo cambia la capa visual.
+   ====================================================== */
+
+:root {
+    --adm-verde: #1f8a3b;
+    --adm-verde-osc: #166a2d;
+    --adm-sidebar: #0f1b2d;
+    --adm-sidebar-activo: #1f8a3b;
+    --adm-amarillo: #f6c600;
+    --adm-bg: #eef1f5;
+    --adm-card: #ffffff;
+    --adm-borde: #e6e9ef;
+    --adm-txt: #2b2f38;
+    --adm-txt-suave: #7a8291;
+}
+
+/* Cuando el panel esta activo, el body ocupa toda la pantalla sin padding */
+body.admin-activo {
+    margin: 0;
+    padding: 0;
+    background: var(--adm-bg);
+}
+
+/* El contenedor principal del panel */
+#main-content {
+    display: none;
+}
+
+#main-content.admin-layout {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    min-height: 100vh;
+}
+
+/* ---------- SIDEBAR ---------- */
+.adm-sidebar {
+    background: var(--adm-sidebar);
+    color: #c7cedb;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+
+.adm-sidebar-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, .07);
+}
+
+.adm-sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.adm-sidebar-brand .mark {
+    background: var(--adm-verde);
+    color: #fff;
+    border-radius: 7px;
+    padding: 5px 9px;
+    font-size: 14px;
+}
+
+.adm-sidebar-close {
+    background: none;
+    border: none;
+    color: #8a93a4;
+    font-size: 18px;
+    cursor: pointer;
+    width: auto;
+    margin: 0;
+    padding: 0;
+}
+
+.adm-nav {
+    list-style: none;
+    margin: 10px 0 0;
+    padding: 0;
+    flex: 1;
+}
+
+.adm-nav li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 22px;
+    font-size: 14px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: background .15s, color .15s;
+    user-select: none;
+}
+
+.adm-nav li .ico {
+    font-size: 16px;
+    width: 20px;
+    text-align: center;
+}
+
+.adm-nav li:hover {
+    background: rgba(255, 255, 255, .05);
+    color: #fff;
+}
+
+.adm-nav li.activo {
+    background: var(--adm-sidebar-activo);
+    color: #fff;
+    border-left-color: var(--adm-amarillo);
+    font-weight: 600;
+}
+
+.adm-nav li .chev {
+    margin-left: auto;
+    font-size: 12px;
+    opacity: .6;
+}
+
+/* ---------- AREA PRINCIPAL ---------- */
+.adm-main {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 22px 26px 40px;
+}
+
+/* ---------- TOPBAR ---------- */
+.adm-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.adm-topbar .adm-bell {
+    background: #fff;
+    border: 1px solid var(--adm-borde);
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.adm-perfil {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    border: 1px solid var(--adm-borde);
+    border-radius: 10px;
+    padding: 7px 14px;
+}
+
+.adm-perfil .avatar {
+    background: var(--adm-verde);
+    color: #fff;
+    border-radius: 7px;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+}
+
+.adm-perfil .info strong {
+    display: block;
+    font-size: 14px;
+    color: var(--adm-txt);
+}
+
+.adm-perfil .info small {
+    color: var(--adm-txt-suave);
+    font-size: 12px;
+}
+
+.adm-perfil .btn-salir {
+    background: none;
+    border: none;
+    color: #c0392b;
+    cursor: pointer;
+    font-size: 13px;
+    width: auto;
+    margin: 0;
+    padding: 0 0 0 8px;
+    font-weight: 600;
+}
+
+/* ---------- MODULOS / SECCIONES ---------- */
+.adm-modulo {
+    display: none;
+}
+
+.adm-modulo.activo {
+    display: block;
+}
+
+/* Tarjeta blanca contenedora */
+.adm-panel {
+    background: var(--adm-card);
+    border: 1px solid var(--adm-borde);
+    border-radius: 14px;
+    padding: 22px 24px;
+    box-shadow: 0 2px 10px rgba(16, 27, 45, .04);
+    margin-bottom: 20px;
+}
+
+.adm-panel-titulo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+
+.adm-panel-titulo h2 {
+    font-size: 20px;
+    color: var(--adm-txt);
+    margin: 0;
+    letter-spacing: .3px;
+}
+
+.adm-btn-amarillo {
+    background: var(--adm-amarillo);
+    color: #1a1a1a;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 22px;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: .5px;
+    cursor: pointer;
+    width: auto;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.adm-btn-amarillo:hover {
+    background: #e6b900;
+}
+
+.adm-btn-verde {
+    background: var(--adm-verde);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 11px 20px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    width: auto;
+    margin: 0;
+}
+
+.adm-btn-verde:hover {
+    background: var(--adm-verde-osc);
+}
+
+/* ---------- FILTROS ---------- */
+.adm-filtros {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 16px;
+    align-items: end;
+}
+
+.adm-filtro label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--adm-txt-suave);
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    margin: 0 0 6px;
+}
+
+.adm-filtro input,
+.adm-filtro select {
+    width: 100%;
+    padding: 11px 13px;
+    border: 1px solid var(--adm-borde);
+    border-radius: 8px;
+    font-size: 14px;
+    margin: 0;
+    background: #fff;
+    box-sizing: border-box;
+}
+
+.adm-filtro input:focus,
+.adm-filtro select:focus {
+    outline: none;
+    border-color: var(--adm-verde);
+    box-shadow: 0 0 0 3px rgba(31, 138, 59, .12);
+}
+
+/* ---------- TABLA ESTILIZADA ---------- */
+.adm-tabla-wrap {
+    overflow-x: auto;
+}
+
+.adm-tabla {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+}
+
+.adm-tabla thead th {
+    background: #eef6f0;
+    color: var(--adm-verde-osc);
+    text-align: left;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .6px;
+    padding: 14px 16px;
+    border: none;
+    white-space: nowrap;
+}
+
+.adm-tabla thead th:first-child {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.adm-tabla thead th:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    text-align: center;
+}
+
+.adm-tabla tbody td {
+    padding: 15px 16px;
+    border-bottom: 1px solid var(--adm-borde);
+    font-size: 14px;
+    color: var(--adm-txt);
+    vertical-align: middle;
+}
+
+.adm-tabla tbody tr:hover {
+    background: #fafcfb;
+}
+
+.adm-tabla .col-nombre {
+    font-weight: 600;
+}
+
+/* Etiqueta de tipo (PRODUCTO) */
+.tag-tipo {
+    display: inline-block;
+    background: #e8f5ec;
+    color: var(--adm-verde);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 11px;
+    border-radius: 6px;
+    letter-spacing: .3px;
+}
+
+/* Badge de stock (pill con color segun nivel) */
+.badge-stock {
+    display: inline-block;
+    min-width: 44px;
+    text-align: center;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 13px;
+    color: #fff;
+}
+
+.stock-alto { background: #1f8a3b; }
+.stock-medio { background: #f0932b; }
+.stock-cero { background: #e23b3b; }
+
+/* Badge de estado */
+.badge-estado {
+    display: inline-block;
+    padding: 5px 13px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.estado-activo { background: #e4f5e9; color: #1f8a3b; }
+.estado-agotar { background: #fde7d4; color: #d98310; }
+.estado-agotado { background: #fde3e3; color: #d13030; }
+
+/* Acciones (iconos) */
+.adm-acciones {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+}
+
+.adm-acciones button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 0;
+    margin: 0;
+    width: auto;
+    line-height: 1;
+}
+
+.acc-editar { color: #2f6fed; }
+.acc-ver { color: #1f8a3b; }
+.acc-borrar { color: #e23b3b; }
+
+.adm-acciones button:hover { opacity: .7; }
+
+.celda-fecha {
+    color: var(--adm-txt-suave);
+    white-space: nowrap;
+}
+
+/* ===== Modal de aviso / error reutilizable ===== */
+.adm-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 27, 45, .55);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 300;
+    padding: 20px;
+}
+.adm-modal-overlay.abierto { display: flex; }
+
+.adm-modal {
+    background: #fff;
+    width: 100%;
+    max-width: 440px;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .3);
+    animation: modalIn .18s ease;
+}
+@keyframes modalIn {
+    from { transform: translateY(12px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.adm-modal-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 22px;
+    color: #fff;
+}
+.adm-modal-head .ico { font-size: 22px; }
+.adm-modal-head h3 { margin: 0; font-size: 17px; }
+
+.adm-modal.tipo-error .adm-modal-head { background: #e23b3b; }
+.adm-modal.tipo-ok .adm-modal-head { background: var(--adm-verde); }
+.adm-modal.tipo-info .adm-modal-head { background: #2f6fed; }
+
+.adm-modal-body {
+    padding: 20px 22px;
+    color: #333;
+    font-size: 15px;
+    line-height: 1.5;
+}
+.adm-modal-body .detalle {
+    margin-top: 10px;
+    background: #f6f7f9;
+    border-left: 3px solid var(--adm-borde);
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #555;
+    word-break: break-word;
+}
+
+.adm-modal-foot {
+    padding: 0 22px 20px;
+    text-align: right;
+}
+.adm-modal-foot button {
+    background: var(--adm-verde);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 22px;
+    font-weight: 700;
+    cursor: pointer;
+    width: auto;
+    margin: 0;
+}
+.adm-modal.tipo-error .adm-modal-foot button { background: #e23b3b; }
+
+/* Paginación reutilizable */
+.adm-paginacion {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    padding-top: 16px;
+    flex-wrap: wrap;
+}
+
+.adm-paginacion button {
+    background: #fff;
+    border: 1px solid var(--adm-borde);
+    color: var(--adm-txt);
+    border-radius: 7px;
+    min-width: 34px;
+    height: 34px;
+    padding: 0 10px;
+    font-size: 13px;
+    cursor: pointer;
+    margin: 0;
+    width: auto;
+}
+
+.adm-paginacion button:hover:not(:disabled) {
+    border-color: var(--adm-verde);
+    color: var(--adm-verde);
+}
+
+.adm-paginacion button.activo {
+    background: var(--adm-verde);
+    border-color: var(--adm-verde);
+    color: #fff;
+    font-weight: 700;
+}
+
+.adm-paginacion button:disabled {
+    opacity: .45;
+    cursor: default;
+}
+
+.adm-paginacion .pag-info {
+    margin-right: auto;
+    color: var(--adm-txt-suave);
+    font-size: 13px;
+}
+
+/* ---------- TARJETAS DE ESTADISTICAS (dashboard) ---------- */
+.adm-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 8px;
+}
+
+.stat-card {
+    background: var(--adm-card);
+    border: 1px solid var(--adm-borde);
+    border-radius: 14px;
+    padding: 20px 22px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 2px 10px rgba(16, 27, 45, .04);
+}
+
+.stat-card .stat-ico {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.stat-ico.verde { background: #e4f5e9; }
+.stat-ico.azul { background: #e5effd; }
+.stat-ico.amarillo { background: #fdf3d2; }
+.stat-ico.rojo { background: #fde3e3; }
+
+.stat-card .stat-info strong {
+    display: block;
+    font-size: 26px;
+    color: var(--adm-txt);
+    line-height: 1.1;
+}
+
+.stat-card .stat-info span {
+    font-size: 13px;
+    color: var(--adm-txt-suave);
+}
+
+/* Tarjetas de modulos (acceso rapido) en el dashboard */
+.adm-modulos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 18px;
+}
+
+.modulo-card {
+    background: var(--adm-card);
+    border: 1px solid var(--adm-borde);
+    border-radius: 14px;
+    padding: 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform .15s, box-shadow .15s, border-color .15s;
+}
+
+.modulo-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--adm-verde);
+    box-shadow: 0 8px 20px rgba(16, 27, 45, .1);
+}
+
+.modulo-card .ico {
+    font-size: 36px;
+}
+
+.modulo-card strong {
+    display: block;
+    margin-top: 10px;
+    color: var(--adm-txt);
+}
+
+.modulo-card small {
+    color: var(--adm-txt-suave);
+    font-size: 13px;
+}
+
+/* ---------- FORMULARIOS DEL PANEL ---------- */
+.adm-form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.adm-form-grid .full {
+    grid-column: 1 / -1;
+}
+
+.adm-campo label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--adm-txt);
+    margin: 0 0 6px;
+}
+
+.adm-campo input,
+.adm-campo select {
+    width: 100%;
+    padding: 11px 13px;
+    border: 1px solid var(--adm-borde);
+    border-radius: 8px;
+    font-size: 14px;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.adm-campo input:focus,
+.adm-campo select:focus {
+    outline: none;
+    border-color: var(--adm-verde);
+    box-shadow: 0 0 0 3px rgba(31, 138, 59, .12);
+}
+
+/* Botón para abrir/cerrar sidebar en móvil */
+.adm-menu-movil {
+    display: none;
+    background: var(--adm-sidebar);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    width: 42px;
+    height: 42px;
+    font-size: 20px;
+    cursor: pointer;
+    margin: 0 auto 0 0;
+}
+
+.adm-overlay {
+    display: none;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 992px) {
+    .adm-filtros { grid-template-columns: 1fr 1fr; }
+    .adm-stats { grid-template-columns: repeat(2, 1fr); }
+    .adm-form-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 760px) {
+    #main-content.admin-layout {
+        grid-template-columns: 1fr;
+    }
+    .adm-sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 250px;
+        z-index: 200;
+        transform: translateX(-100%);
+        transition: transform .25s;
+    }
+    .adm-sidebar.abierto {
+        transform: translateX(0);
+    }
+    .adm-overlay.abierto {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, .45);
+        z-index: 150;
+    }
+    .adm-menu-movil {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .adm-topbar {
+        justify-content: space-between;
+    }
+    .adm-perfil .info { display: none; }
+}
+
+@media (max-width: 560px) {
+    .adm-filtros { grid-template-columns: 1fr; }
+    .adm-stats { grid-template-columns: 1fr; }
+    .adm-form-grid { grid-template-columns: 1fr; }
+    .adm-main { padding: 16px; }
+}
+
+
 </style>
 </head>
 <body class="login-activo">
@@ -482,293 +1220,680 @@ body.login-activo {
 <!-- SISTEMA -->
 
 <div id="main-content">
-<div style="display:flex;justify-content:space-between;align-items:center;">
-<h1>Inventario de Abarrotes</h1>
-<div>
-<button 
-style="background:#e2001a;width:auto"
-onclick="irAInicio()">
-Inicio 
-</button>
 
-<button 
-style="background:#007bff;width:auto"
-onclick="toggleUsuarios()">
-+ Usuario 
-</button>
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="adm-sidebar" id="admSidebar">
+        <div class="adm-sidebar-top">
+            <div class="adm-sidebar-brand">
+                <span class="mark">DG</span>
+                <span>Don Gil</span>
+            </div>
+            <button class="adm-sidebar-close" onclick="cerrarSidebar()">✕</button>
+        </div>
+        <ul class="adm-nav">
+            <li class="activo" data-modulo="dashboard" onclick="mostrarModulo('dashboard', this)">
+                <span class="ico">▦</span> DASHBOARD
+            </li>
+            <li data-modulo="productos" onclick="mostrarModulo('productos', this)">
+                <span class="ico">📦</span> PRODUCTOS
+            </li>
+            <li data-modulo="clientes" onclick="mostrarModulo('clientes', this)">
+                <span class="ico">🧑‍🤝‍🧑</span> CLIENTES
+            </li>
+            <li data-modulo="cotizaciones" onclick="mostrarModulo('cotizaciones', this)">
+                <span class="ico">🧾</span> COTIZACIONES
+            </li>
+            <li data-modulo="ventas" onclick="mostrarModulo('ventas', this)">
+                <span class="ico">💰</span> VENTAS
+            </li>
+            <li data-modulo="usuarios" onclick="mostrarModulo('usuarios', this)">
+                <span class="ico">👥</span> USUARIOS
+            </li>
+            <li data-modulo="alertas" onclick="mostrarModulo('alertas', this)">
+                <span class="ico">🔔</span> ALERTAS
+            </li>
+            <li onclick="irAInicio()">
+                <span class="ico">🏪</span> IR A LA TIENDA
+            </li>
+        </ul>
+    </aside>
+    <div class="adm-overlay" id="admOverlay" onclick="cerrarSidebar()"></div>
 
+    <!-- ================= ÁREA PRINCIPAL ================= -->
+    <div class="adm-main">
 
-<button 
-class="btn-logout"
-onclick="logout()">
-Salir
-</button>
+        <!-- TOPBAR -->
+        <div class="adm-topbar">
+            <button class="adm-menu-movil" onclick="abrirSidebar()">☰</button>
+            <div class="adm-bell" title="Alertas" onclick="mostrarModulo('alertas')">🔔</div>
+            <div class="adm-perfil">
+                <span class="avatar">👤</span>
+                <span class="info">
+                    <strong id="perfilNombre">Administrador</strong>
+                    <small id="perfilRol">Panel Don Gil</small>
+                </span>
+                <button class="btn-salir" onclick="logout()">Salir</button>
+            </div>
+        </div>
+
+        <!-- ========== MÓDULO: DASHBOARD ========== -->
+        <section class="adm-modulo activo" id="mod-dashboard">
+            <div class="adm-stats">
+                <div class="stat-card">
+                    <div class="stat-ico verde">📦</div>
+                    <div class="stat-info"><strong id="statProductos">0</strong><span>Productos</span></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-ico amarillo">⚠️</div>
+                    <div class="stat-info"><strong id="statAlertas">0</strong><span>Por vencer</span></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-ico rojo">🚫</div>
+                    <div class="stat-info"><strong id="statAgotados">0</strong><span>Agotados</span></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-ico azul">🧑‍🤝‍🧑</div>
+                    <div class="stat-info"><strong id="statClientes">0</strong><span>Clientes</span></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-ico amarillo">🧾</div>
+                    <div class="stat-info"><strong id="statCotizaciones">0</strong><span>Cotizaciones</span></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-ico verde">💰</div>
+                    <div class="stat-info"><strong id="statVentas">0</strong><span>Ventas</span></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-ico verde">📈</div>
+                    <div class="stat-info"><strong id="statIngresos">S/ 0</strong><span>Total vendido</span></div>
+                </div>
+            </div>
+
+            <div class="adm-panel">
+                <div class="adm-panel-titulo"><h2>Accesos rápidos</h2></div>
+                <div class="adm-modulos-grid">
+                    <div class="modulo-card" onclick="mostrarModulo('productos')">
+                        <div class="ico">📦</div><strong>Productos</strong><small>Gestión de inventario</small>
+                    </div>
+                    <div class="modulo-card" onclick="mostrarModulo('clientes')">
+                        <div class="ico">🧑‍🤝‍🧑</div><strong>Clientes</strong><small>Cartera de clientes</small>
+                    </div>
+                    <div class="modulo-card" onclick="mostrarModulo('cotizaciones')">
+                        <div class="ico">🧾</div><strong>Cotizaciones</strong><small>Presupuestos</small>
+                    </div>
+                    <div class="modulo-card" onclick="mostrarModulo('ventas')">
+                        <div class="ico">💰</div><strong>Ventas</strong><small>Registro de ventas</small>
+                    </div>
+                    <div class="modulo-card" onclick="mostrarModulo('usuarios')">
+                        <div class="ico">👥</div><strong>Usuarios</strong><small>Cuentas y roles</small>
+                    </div>
+                    <div class="modulo-card" onclick="mostrarModulo('alertas')">
+                        <div class="ico">🔔</div><strong>Alertas</strong><small>Vencimientos</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== MÓDULO: PRODUCTOS ========== -->
+        <section class="adm-modulo" id="mod-productos">
+
+            <!-- Panel: tabla con filtros -->
+            <div class="adm-panel">
+                <div class="adm-panel-titulo">
+                    <h2>GESTIÓN DE PRODUCTOS</h2>
+                    <button class="adm-btn-amarillo" onclick="abrirFormProducto()">AGREGAR</button>
+                </div>
+
+                <div class="adm-filtros">
+                    <div class="adm-filtro">
+                        <label>Buscador</label>
+                        <input type="text" id="buscadorProducto" placeholder="🔍 Buscar por producto o código..." oninput="renderProductosTabla()">
+                    </div>
+                    <div class="adm-filtro">
+                        <label>Categoría</label>
+                        <select id="filtroCategoria" onchange="renderProductosTabla()">
+                            <option value="">Todas</option>
+                        </select>
+                    </div>
+                    <div class="adm-filtro">
+                        <label>Estado</label>
+                        <select id="filtroEstado" onchange="renderProductosTabla()">
+                            <option value="">Todos</option>
+                            <option value="activo">Activo</option>
+                            <option value="agotar">Por agotarse</option>
+                            <option value="agotado">Agotado</option>
+                        </select>
+                    </div>
+                    <div class="adm-filtro">
+                        <label>Fecha venc.</label>
+                        <input type="date" id="filtroFecha" onchange="renderProductosTabla()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel: tabla -->
+            <div class="adm-panel">
+                <div class="adm-tabla-wrap">
+                    <table class="adm-tabla">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Código</th>
+                                <th>Tipo</th>
+                                <th>Precio unit.</th>
+                                <th>Stock</th>
+                                <th>Vencimiento</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <!-- IDs reutilizados por la lógica existente -->
+                        <tbody id="tabla"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Panel: formulario de registro de producto (oculto hasta AGREGAR) -->
+            <div class="adm-panel" id="panelFormProducto" style="display:none">
+                <div class="adm-panel-titulo">
+                    <h2 id="tituloFormProducto">Registrar producto</h2>
+                    <button class="adm-btn-verde" onclick="cerrarFormProducto()" style="background:#8a93a4">Cerrar</button>
+                </div>
+                <input type="hidden" id="productoEditId" value="">
+                <div class="adm-form-grid">
+                    <div class="adm-campo full">
+                        <label>Nombre *</label>
+                        <input id="nombre">
+                    </div>
+                    <div class="adm-campo">
+                        <label>Categoría *</label>
+                        <select id="categoria"><option value="">Seleccione...</option></select>
+                    </div>
+                    <div class="adm-campo">
+                        <label>Marca</label>
+                        <input id="marca">
+                    </div>
+                    <div class="adm-campo">
+                        <label>Código barras</label>
+                        <input id="codigo_barras">
+                    </div>
+                    <div class="adm-campo">
+                        <label>SKU</label>
+                        <input id="sku">
+                    </div>
+                    <div class="adm-campo">
+                        <label>Proveedor ID</label>
+                        <input id="proveedor_id" value="1">
+                    </div>
+                    <div class="adm-campo">
+                        <label>Documento</label>
+                        <input id="numero_documento">
+                    </div>
+                    <div class="adm-campo">
+                        <label>Fecha elaboración</label>
+                        <input type="date" id="fecha_elaboracion">
+                    </div>
+                    <div class="adm-campo">
+                        <label>Fecha vencimiento *</label>
+                        <input type="date" id="fecha">
+                    </div>
+                    <div class="adm-campo">
+                        <label>Cantidad</label>
+                        <input type="number" id="cantidad" value="0">
+                    </div>
+                    <div class="adm-campo">
+                        <label>Stock mínimo</label>
+                        <input type="number" id="stock" value="0">
+                    </div>
+                    <div class="adm-campo">
+                        <label>Precio costo</label>
+                        <input type="number" id="precio_costo" value="0">
+                    </div>
+                    <div class="adm-campo">
+                        <label>Precio venta</label>
+                        <input type="number" id="precio_venta" value="0">
+                    </div>
+                </div>
+                <div style="margin-top:18px">
+                    <button class="adm-btn-verde" onclick="guardar()">Guardar Producto</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== MÓDULO: CLIENTES ========== -->
+        <section class="adm-modulo" id="mod-clientes">
+            <div class="adm-panel">
+                <div class="adm-panel-titulo">
+                    <h2>GESTIÓN DE CLIENTES</h2>
+                    <button class="adm-btn-amarillo" onclick="abrirFormCliente()">AGREGAR</button>
+                </div>
+                <div class="adm-filtros">
+                    <div class="adm-filtro">
+                        <label>Buscador</label>
+                        <input type="text" id="buscadorCliente" placeholder="🔍 Buscar por nombre, código o documento..." oninput="renderClientesTabla()">
+                    </div>
+                    <div class="adm-filtro">
+                        <label>Estado</label>
+                        <select id="filtroClienteEstado" onchange="renderClientesTabla()">
+                            <option value="">Todos</option>
+                            <option value="Activo">Activo</option>
+                            <option value="Inactivo">Inactivo</option>
+                        </select>
+                    </div>
+                    <div class="adm-filtro">
+                        <label>Tipo doc.</label>
+                        <select id="filtroClienteDoc" onchange="renderClientesTabla()">
+                            <option value="">Todos</option>
+                            <option value="DNI">DNI</option>
+                            <option value="RUC">RUC</option>
+                            <option value="CE">CE</option>
+                            <option value="Pasaporte">Pasaporte</option>
+                        </select>
+                    </div>
+                    <div class="adm-filtro">
+                        <label>Frecuencia</label>
+                        <select id="filtroClienteFrec" onchange="renderClientesTabla()">
+                            <option value="">Todas</option>
+                            <option value="Nuevo">Nuevo</option>
+                            <option value="Ocasional">Ocasional</option>
+                            <option value="Frecuente">Frecuente</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="adm-panel">
+                <div class="adm-tabla-wrap">
+                    <table class="adm-tabla">
+                        <thead>
+                            <tr>
+                                <th>Código</th><th>Cliente</th><th>E-mail</th><th>Teléfono</th>
+                                <th>Documento</th><th>Dirección</th><th>Fecha registro</th>
+                                <th>Última compra</th><th>Frecuencia</th><th>Estado</th><th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaClientes"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Formulario cliente (oculto) -->
+            <div class="adm-panel" id="panelFormCliente" style="display:none">
+                <div class="adm-panel-titulo">
+                    <h2 id="tituloFormCliente">Registrar cliente</h2>
+                    <button class="adm-btn-verde" onclick="cerrarFormCliente()" style="background:#8a93a4">Cerrar</button>
+                </div>
+                <input type="hidden" id="clienteEditId" value="">
+                <div class="adm-form-grid">
+                    <div class="adm-campo full"><label>Nombre completo *</label><input id="cli_nombre"></div>
+                    <div class="adm-campo"><label>E-mail</label><input id="cli_email" type="email"></div>
+                    <div class="adm-campo"><label>Teléfono</label><input id="cli_telefono"></div>
+                    <div class="adm-campo">
+                        <label>Tipo documento</label>
+                        <select id="cli_tipo_doc">
+                            <option value="DNI">DNI</option>
+                            <option value="RUC">RUC</option>
+                            <option value="CE">CE</option>
+                            <option value="Pasaporte">Pasaporte</option>
+                        </select>
+                    </div>
+                    <div class="adm-campo"><label>N° documento</label><input id="cli_num_doc"></div>
+                    <div class="adm-campo"><label>Dirección</label><input id="cli_direccion"></div>
+                    <div class="adm-campo">
+                        <label>Frecuencia</label>
+                        <select id="cli_frecuencia">
+                            <option value="Nuevo">Nuevo</option>
+                            <option value="Ocasional">Ocasional</option>
+                            <option value="Frecuente">Frecuente</option>
+                        </select>
+                    </div>
+                    <div class="adm-campo">
+                        <label>Estado</label>
+                        <select id="cli_estado">
+                            <option value="Activo">Activo</option>
+                            <option value="Inactivo">Inactivo</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="margin-top:18px">
+                    <button class="adm-btn-verde" onclick="guardarCliente()">Guardar Cliente</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== MÓDULO: COTIZACIONES ========== -->
+        <section class="adm-modulo" id="mod-cotizaciones">
+            <div class="adm-panel">
+                <div class="adm-panel-titulo">
+                    <h2>GESTIÓN DE COTIZACIONES</h2>
+                    <button class="adm-btn-amarillo" onclick="abrirFormCotizacion()">AGREGAR</button>
+                </div>
+                <div class="adm-filtros">
+                    <div class="adm-filtro">
+                        <label>Buscador</label>
+                        <input type="text" id="buscadorCotizacion" placeholder="🔍 Buscar por código o cliente..." oninput="renderCotizacionesTabla()">
+                    </div>
+                    <div class="adm-filtro">
+                        <label>Estado</label>
+                        <select id="filtroCotEstado" onchange="renderCotizacionesTabla()">
+                            <option value="">Todos</option>
+                            <option value="Pendiente">Pendiente</option>
+                            <option value="Aprobada">Aprobada</option>
+                            <option value="Rechazada">Rechazada</option>
+                            <option value="Vencida">Vencida</option>
+                            <option value="Convertida">Convertida</option>
+                        </select>
+                    </div>
+                    <div class="adm-filtro">
+                        <label>Fecha</label>
+                        <input type="date" id="filtroCotFecha" onchange="renderCotizacionesTabla()">
+                    </div>
+                </div>
+            </div>
+
+            <div class="adm-panel">
+                <div class="adm-tabla-wrap">
+                    <table class="adm-tabla">
+                        <thead>
+                            <tr>
+                                <th>Cliente</th><th>Código</th><th>Contacto</th>
+                                <th>Total</th><th>Estado</th><th>Fecha</th><th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaCotizaciones"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Formulario cotización (oculto) -->
+            <div class="adm-panel" id="panelFormCotizacion" style="display:none">
+                <div class="adm-panel-titulo">
+                    <h2 id="tituloFormCotizacion">Nueva cotización</h2>
+                    <button class="adm-btn-verde" onclick="cerrarFormCotizacion()" style="background:#8a93a4">Cerrar</button>
+                </div>
+                <input type="hidden" id="cotizacionEditId" value="">
+                <div class="adm-form-grid">
+                    <div class="adm-campo">
+                        <label>Cliente *</label>
+                        <select id="cot_cliente"><option value="">Seleccione...</option></select>
+                    </div>
+                    <div class="adm-campo"><label>Contacto</label><input id="cot_contacto"></div>
+                    <div class="adm-campo">
+                        <label>Estado</label>
+                        <select id="cot_estado">
+                            <option value="Pendiente">Pendiente</option>
+                            <option value="Aprobada">Aprobada</option>
+                            <option value="Rechazada">Rechazada</option>
+                            <option value="Vencida">Vencida</option>
+                        </select>
+                    </div>
+                    <div class="adm-campo"><label>Subtotal</label><input type="number" id="cot_subtotal" value="0" oninput="recalcularCot()"></div>
+                    <div class="adm-campo"><label>Descuento</label><input type="number" id="cot_descuento" value="0" oninput="recalcularCot()"></div>
+                    <div class="adm-campo"><label>Impuesto (IGV)</label><input type="number" id="cot_impuesto" value="0" oninput="recalcularCot()"></div>
+                    <div class="adm-campo"><label>Total</label><input id="cot_total" value="0" readonly style="background:#f3f5f7;font-weight:700"></div>
+                    <div class="adm-campo"><label>Fecha vencimiento</label><input type="date" id="cot_fecha_venc"></div>
+                    <div class="adm-campo full"><label>Observaciones</label><input id="cot_observaciones"></div>
+                </div>
+                <div style="margin-top:18px">
+                    <button class="adm-btn-verde" onclick="guardarCotizacion()">Guardar Cotización</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== MÓDULO: VENTAS ========== -->
+        <section class="adm-modulo" id="mod-ventas">
+            <div class="adm-panel">
+                <div class="adm-panel-titulo">
+                    <h2>GESTIÓN DE VENTAS</h2>
+                    <button class="adm-btn-amarillo" onclick="abrirFormVenta()">AGREGAR</button>
+                </div>
+                <div class="adm-filtros">
+                    <div class="adm-filtro">
+                        <label>Buscador</label>
+                        <input type="text" id="buscadorVenta" placeholder="🔍 Buscar por código o cliente..." oninput="renderVentasTabla()">
+                    </div>
+                    <div class="adm-filtro">
+                        <label>Estado pago</label>
+                        <select id="filtroVentaEstado" onchange="renderVentasTabla()">
+                            <option value="">Todos</option>
+                            <option value="Pagado">Pagado</option>
+                            <option value="Pendiente">Pendiente</option>
+                            <option value="Anulado">Anulado</option>
+                        </select>
+                    </div>
+                    <div class="adm-filtro">
+                        <label>Desde</label>
+                        <input type="date" id="filtroVentaDesde" onchange="renderVentasTabla()">
+                    </div>
+                    <div class="adm-filtro">
+                        <label>Hasta</label>
+                        <input type="date" id="filtroVentaHasta" onchange="renderVentasTabla()">
+                    </div>
+                </div>
+            </div>
+
+            <div class="adm-panel">
+                <div class="adm-tabla-wrap">
+                    <table class="adm-tabla">
+                        <thead>
+                            <tr>
+                                <th>Cliente</th><th>Código</th><th>Contacto</th>
+                                <th>Total</th><th>Estado</th><th>Fecha</th><th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaVentas"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Formulario venta (oculto) -->
+            <div class="adm-panel" id="panelFormVenta" style="display:none">
+                <div class="adm-panel-titulo">
+                    <h2 id="tituloFormVenta">Registrar venta</h2>
+                    <button class="adm-btn-verde" onclick="cerrarFormVenta()" style="background:#8a93a4">Cerrar</button>
+                </div>
+                <input type="hidden" id="ventaEditId" value="">
+                <div class="adm-form-grid">
+                    <div class="adm-campo">
+                        <label>Cliente *</label>
+                        <select id="ven_cliente"><option value="">Seleccione...</option></select>
+                    </div>
+                    <div class="adm-campo"><label>Contacto</label><input id="ven_contacto"></div>
+                    <div class="adm-campo">
+                        <label>Método de pago</label>
+                        <select id="ven_metodo">
+                            <option value="Efectivo">Efectivo</option>
+                            <option value="Tarjeta">Tarjeta</option>
+                            <option value="Yape">Yape</option>
+                            <option value="Transferencia">Transferencia</option>
+                        </select>
+                    </div>
+                    <div class="adm-campo">
+                        <label>Estado pago</label>
+                        <select id="ven_estado">
+                            <option value="Pagado">Pagado</option>
+                            <option value="Pendiente">Pendiente</option>
+                            <option value="Anulado">Anulado</option>
+                        </select>
+                    </div>
+                    <div class="adm-campo"><label>Subtotal</label><input type="number" id="ven_subtotal" value="0" oninput="recalcularVen()"></div>
+                    <div class="adm-campo"><label>Descuento</label><input type="number" id="ven_descuento" value="0" oninput="recalcularVen()"></div>
+                    <div class="adm-campo"><label>Impuesto (IGV)</label><input type="number" id="ven_impuesto" value="0" oninput="recalcularVen()"></div>
+                    <div class="adm-campo"><label>Total</label><input id="ven_total" value="0" readonly style="background:#f3f5f7;font-weight:700"></div>
+                    <div class="adm-campo full"><label>Observaciones</label><input id="ven_observaciones"></div>
+                </div>
+                <div style="margin-top:18px">
+                    <button class="adm-btn-verde" onclick="guardarVenta()">Guardar Venta</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== MÓDULO: USUARIOS ========== -->
+        <section class="adm-modulo" id="mod-usuarios">
+
+            <!-- Filtros (mismo estilo que los demás módulos) -->
+            <div class="adm-panel">
+                <div class="adm-panel-titulo">
+                    <h2>GESTIÓN DE USUARIOS</h2>
+                    <button class="adm-btn-amarillo" onclick="abrirFormUsuario()">AGREGAR</button>
+                </div>
+                <div class="adm-filtros">
+                    <div class="adm-filtro">
+                        <label>Buscador</label>
+                        <input type="text" id="buscadorUsuario" placeholder="🔍 Buscar por usuario, código o correo..." oninput="renderUsuariosTabla(true)">
+                    </div>
+                    <div class="adm-filtro">
+                        <label>Rol</label>
+                        <select id="filtroUsuRol" onchange="renderUsuariosTabla(true)">
+                            <option value="">Todos</option>
+                        </select>
+                    </div>
+                    <div class="adm-filtro">
+                        <label>Estado</label>
+                        <select id="filtroUsuEstado" onchange="renderUsuariosTabla(true)">
+                            <option value="">Todos</option>
+                            <option value="1">Activo</option>
+                            <option value="0">Inactivo</option>
+                        </select>
+                    </div>
+                    <div class="adm-filtro">
+                        <label>Ordenar por</label>
+                        <select id="ordenUsuario" onchange="renderUsuariosTabla(true)">
+                            <option value="id">Código</option>
+                            <option value="usuario">Usuario</option>
+                            <option value="rol">Rol</option>
+                            <option value="estado">Estado</option>
+                            <option value="fecha_creacion">Fecha registro</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabla estilizada -->
+            <div class="adm-panel">
+                <div class="adm-tabla-wrap">
+                    <table class="adm-tabla">
+                        <thead>
+                            <tr>
+                                <th>Usuario</th>
+                                <th>Código</th>
+                                <th>Rol</th>
+                                <th>Correo electrónico</th>
+                                <th>Estado</th>
+                                <th>Fecha registro</th>
+                                <th>Último acceso</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaUsuarios"></tbody>
+                    </table>
+                </div>
+                <div class="adm-paginacion" id="paginacionUsuarios"></div>
+            </div>
+
+            <!-- Formulario CREAR USUARIO (se conserva igual; sólo se envuelve en un panel plegable) -->
+            <div class="adm-panel" id="panelFormUsuario" style="display:none">
+                <div class="adm-panel-titulo">
+                    <h2>CREAR USUARIO</h2>
+                    <button class="adm-btn-verde" onclick="cerrarFormUsuario()" style="background:#8a93a4">Cerrar</button>
+                </div>
+                <div class="adm-form-grid">
+                    <div class="adm-campo">
+                        <label>Usuario</label>
+                        <input id="nuevoUsuario">
+                    </div>
+                    <div class="adm-campo">
+                        <label>RUT</label>
+                        <input id="nuevoRut" placeholder="11.111.111-1">
+                    </div>
+                    <div class="adm-campo">
+                        <label>Correo</label>
+                        <input id="nuevoCorreo" type="email">
+                    </div>
+                    <div class="adm-campo">
+                        <label>Contraseña</label>
+                        <input id="nuevoPassword" type="password">
+                    </div>
+                    <div class="adm-campo">
+                        <label>Rol</label>
+                        <select id="nuevoRol">
+                            <option value="1">Administrador</option>
+                            <option value="2">Vendedor</option>
+                            <option value="3">Bodega</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="margin-top:18px">
+                    <button class="adm-btn-verde" onclick="crearUsuario()">Guardar Usuario</button>
+                </div>
+            </div>
+
+            <!-- Formulario EDITAR USUARIO (datos básicos, sin tocar contraseña/login) -->
+            <div class="adm-panel" id="panelEditarUsuario" style="display:none">
+                <div class="adm-panel-titulo">
+                    <h2>EDITAR USUARIO</h2>
+                    <button class="adm-btn-verde" onclick="cerrarEditarUsuario()" style="background:#8a93a4">Cerrar</button>
+                </div>
+                <input type="hidden" id="editUsuId" value="">
+                <div class="adm-form-grid">
+                    <div class="adm-campo">
+                        <label>Usuario</label>
+                        <input id="editUsuNombre" disabled style="background:#f3f5f7">
+                    </div>
+                    <div class="adm-campo">
+                        <label>RUT</label>
+                        <input id="editUsuRut">
+                    </div>
+                    <div class="adm-campo">
+                        <label>Correo</label>
+                        <input id="editUsuCorreo" type="email">
+                    </div>
+                    <div class="adm-campo">
+                        <label>Rol</label>
+                        <select id="editUsuRol">
+                            <option value="1">Administrador</option>
+                            <option value="2">Vendedor</option>
+                            <option value="3">Bodega</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="margin-top:18px">
+                    <button class="adm-btn-verde" onclick="guardarEdicionUsuario()">Guardar cambios</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== MÓDULO: ALERTAS ========== -->
+        <section class="adm-modulo" id="mod-alertas">
+            <div class="adm-panel">
+                <div class="adm-panel-titulo">
+                    <h2>ALERTAS DE VENCIMIENTO</h2>
+                    <button class="adm-btn-verde" onclick="imprimirAlertas()">🖨️ Imprimir</button>
+                </div>
+                <div id="alertas"></div>
+            </div>
+        </section>
+
+    </div>
 </div>
-</div>
-<div class="container">
 
-
-
-<!-- PRODUCTOS -->
-
-<div class="box">
-<h2>Registro Producto</h2>
-<div class="grid-form">
-<div class="full-width">
-<label>
-
-Nombre *
-
-</label>
-<input id="nombre">
-</div>
-
-
-
-
-<div>
-<label>
-Categoría *
-</label>
-<select id="categoria">
-
-<option value="">
-
-Seleccione...
-
-</option>
-</select>
+<!-- ===== Modal reutilizable de aviso / error ===== -->
+<div class="adm-modal-overlay" id="admModalOverlay">
+    <div class="adm-modal tipo-error" id="admModal">
+        <div class="adm-modal-head">
+            <span class="ico" id="admModalIco">⚠️</span>
+            <h3 id="admModalTitulo">No se pudo guardar</h3>
+        </div>
+        <div class="adm-modal-body">
+            <div id="admModalMensaje">Ocurrió un error.</div>
+            <div class="detalle" id="admModalDetalle" style="display:none"></div>
+        </div>
+        <div class="adm-modal-foot">
+            <button onclick="cerrarModal()">Entendido</button>
+        </div>
+    </div>
 </div>
 
-
-
-
-<div>
-<label>
-Marca
-</label>
-<input id="marca">
-</div>
-
-<div>
-<label>
-Código barras
-</label>
-
-<input id="codigo_barras">
-</div>
-
-
-<div>
-<label>
-SKU
-</label>
-<input id="sku">
-</div>
-
-
-<div>
-<label>
-Proveedor ID
-</label>
-
-<input id="proveedor_id" value="1">
-</div>
-
-
-<div>
-<label>
-Documento
-</label>
-
-<input id="numero_documento">
-</div>
-
-
-<div>
-<label>
-Fecha elaboración
-</label>
-
-<input type="date" id="fecha_elaboracion">
-</div>
-
-
-<div>
-<label>
-Fecha vencimiento *
-</label>
-
-<input type="date" id="fecha">
-</div>
-
-
-<div>
-<label>
-Cantidad
-</label>
-
-<input type="number" id="cantidad" value="0">
-</div>
-
-
-<div>
-<label>
-Stock mínimo
-</label>
-
-<input type="number" id="stock" value="0">
-</div>
-
-
-<div>
-<label>
-Precio costo
-</label>
-
-<input type="number" id="precio_costo" value="0">
-</div>
-
-
-<div>
-<label>
-Precio venta
-</label>
-
-<input type="number" id="precio_venta" value="0">
-</div>
-
-</div>
-
-
-<button onclick="guardar()">
-Guardar Producto
-</button>
-</div>
-
-
-
-<!-- LISTADO -->
-<div class="box">
-<h2>
-Productos
-</h2>
-
-<table>
-<thead>
-<tr>
-<th>
-Producto
-</th>
-
-<th>
-Categoría
-</th>
-
-<th>
-Vence
-</th>
-
-<th>
-Stock
-</th>
-
-</tr>
-
-</thead>
-<tbody id="tabla"> </tbody>
-
-</table>
-<h2>
-Alertas
-</h2>
-
-<button 
-style="background:#17a2b8"
-onclick="imprimirAlertas()">
-
-Imprimir Alertas
-
-</button>
-<div id="alertas">
-</div>
-</div>
-</div>
-</div>
-
-<!-- PANEL USUARIOS -->
-
-<div id="panel-usuarios" style="display:none;" class="container">
-<div class="box">
-<h2>
-Crear Usuario
-</h2>
-<div class="grid-form">
-<div>
-
-<label>
-Usuario
-</label>
-<input id="nuevoUsuario">
-</div>
-
-<div>
-<label>
-RUT
-</label>
-<input 
-id="nuevoRut"
-placeholder="11.111.111-1">
-</div>
-
-
-<div>
-<label>
-Correo
-</label>
-
-<input id="nuevoCorreo" type="email">
-</div>
-
-
-
-<div>
-<label>
-Contraseña
-</label>
-<input id="nuevoPassword" type="password">
-</div>
-
-<div>
-<label>
-Rol
-</label>
-<select id="nuevoRol">
-
-<option value="1">
-Administrador
-</option>
-
-<option value="2">
-Vendedor
-</option>
-
-<option value="3">
-Bodega
-</option>
-
-</select>
-</div>
-
-
-</div>
-<button onclick="crearUsuario()">
-Guardar Usuario
-</button>
-</div>
-
-
-</div>
 <script>
 
 const API_URL = "http://localhost:3000";
@@ -776,6 +1901,56 @@ const API_URL = "http://localhost:3000";
 let token = localStorage.getItem("token");
 
 
+// ================= MODAL DE AVISO / ERROR =================
+// mostrarModal(mensaje, { tipo: "error"|"ok"|"info", titulo, detalle })
+function mostrarModal(mensaje, opciones = {}) {
+    const tipo = opciones.tipo || "error";
+    const modal = document.getElementById("admModal");
+    const overlay = document.getElementById("admModalOverlay");
+
+    const titulos = {
+        error: "No se pudo guardar",
+        ok: "Operación exitosa",
+        info: "Aviso"
+    };
+    const iconos = { error: "⚠️", ok: "✅", info: "ℹ️" };
+
+    modal.className = "adm-modal tipo-" + tipo;
+    document.getElementById("admModalIco").textContent = iconos[tipo] || "⚠️";
+    document.getElementById("admModalTitulo").textContent = opciones.titulo || titulos[tipo] || "Aviso";
+    document.getElementById("admModalMensaje").textContent = mensaje || "Ocurrió un error.";
+
+    const det = document.getElementById("admModalDetalle");
+    if (opciones.detalle) {
+        det.textContent = opciones.detalle;
+        det.style.display = "block";
+    } else {
+        det.style.display = "none";
+    }
+
+    overlay.classList.add("abierto");
+}
+
+function cerrarModal() {
+    document.getElementById("admModalOverlay").classList.remove("abierto");
+}
+
+// Cerrar al hacer clic fuera del cuadro
+document.addEventListener("DOMContentLoaded", () => {
+    const ov = document.getElementById("admModalOverlay");
+    if (ov) ov.addEventListener("click", (e) => { if (e.target === ov) cerrarModal(); });
+});
+
+// Valida que un valor sea numérico; devuelve mensaje de error o null si es válido
+function validarNumero(valor, nombreCampo, { entero = false, min = null } = {}) {
+    const txt = String(valor).trim();
+    if (txt === "") return `El campo "${nombreCampo}" está vacío y debe ser un número.`;
+    const n = Number(txt);
+    if (!isFinite(n)) return `El campo "${nombreCampo}" debe ser un número. Escribiste: "${valor}".`;
+    if (entero && !Number.isInteger(n)) return `El campo "${nombreCampo}" debe ser un número entero (sin decimales).`;
+    if (min !== null && n < min) return `El campo "${nombreCampo}" no puede ser menor que ${min}.`;
+    return null;
+}
 
 
 // ================= INICIO =================
@@ -880,15 +2055,19 @@ function mostrarApp()
 {
 
     document.body.classList.remove("login-activo");
+    document.body.classList.add("admin-activo");
 
     document.getElementById(
         "login-section"
     ).style.display="none";
 
+    // El panel usa layout de grid (sidebar + main)
+    const main = document.getElementById("main-content");
+    main.classList.add("admin-layout");
+    main.style.display = "grid";
 
-    document.getElementById(
-        "main-content"
-    ).style.display="block";
+    // Cargar nombre/rol del perfil desde el token (si es posible)
+    cargarPerfilDesdeToken();
 
     cargarCategorias();
 
@@ -896,7 +2075,107 @@ function mostrarApp()
 
     cargarAlertas();
 
+    // Módulos de gestión comercial
+    cargarClientes();
+    cargarCotizaciones();
+    cargarVentas();
+    cargarUsuarios();
 
+}
+
+
+// ================= PERFIL (lee datos del JWT) =================
+
+function cargarPerfilDesdeToken()
+{
+    try {
+        const payload = JSON.parse(atob(token.split(".")[1]));
+        if (payload.usuario) {
+            document.getElementById("perfilNombre").textContent = payload.usuario;
+        }
+        if (payload.rol) {
+            document.getElementById("perfilRol").textContent = payload.rol;
+        }
+    } catch (e) {
+        // Si el token no es decodificable, se dejan los valores por defecto
+    }
+}
+
+
+// ================= NAVEGACIÓN ENTRE MÓDULOS =================
+
+function mostrarModulo(nombre, elemento)
+{
+    // Ocultar todos los módulos y mostrar el seleccionado
+    document.querySelectorAll(".adm-modulo").forEach(m => m.classList.remove("activo"));
+    const mod = document.getElementById("mod-" + nombre);
+    if (mod) mod.classList.add("activo");
+
+    // Resaltar el ítem del sidebar
+    document.querySelectorAll(".adm-nav li[data-modulo]").forEach(li => li.classList.remove("activo"));
+    if (elemento) {
+        elemento.classList.add("activo");
+    } else {
+        const li = document.querySelector('.adm-nav li[data-modulo="' + nombre + '"]');
+        if (li) li.classList.add("activo");
+    }
+
+    // Refrescar datos del módulo abierto
+    if (nombre === "dashboard") actualizarStats();
+    if (nombre === "alertas") cargarAlertas();
+    if (nombre === "clientes") cargarClientes();
+    if (nombre === "usuarios") cargarUsuarios();
+    if (nombre === "cotizaciones") cargarCotizaciones();
+    if (nombre === "ventas") cargarVentas();
+
+    cerrarSidebar();
+}
+
+
+// ================= SIDEBAR MÓVIL =================
+
+function abrirSidebar()
+{
+    document.getElementById("admSidebar").classList.add("abierto");
+    document.getElementById("admOverlay").classList.add("abierto");
+}
+
+function cerrarSidebar()
+{
+    document.getElementById("admSidebar").classList.remove("abierto");
+    document.getElementById("admOverlay").classList.remove("abierto");
+}
+
+
+// ================= FORMULARIO DE PRODUCTO (mostrar/ocultar) =================
+
+function abrirFormProducto()
+{
+    document.getElementById("productoEditId").value = "";
+    document.getElementById("tituloFormProducto").textContent = "Registrar producto";
+    limpiarFormProducto();
+    const panel = document.getElementById("panelFormProducto");
+    panel.style.display = "block";
+    panel.scrollIntoView({ behavior: "smooth" });
+}
+
+function cerrarFormProducto()
+{
+    document.getElementById("panelFormProducto").style.display = "none";
+}
+
+function limpiarFormProducto()
+{
+    ["nombre","marca","codigo_barras","sku","numero_documento",
+     "fecha_elaboracion","fecha"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = "";
+    });
+    document.getElementById("categoria").value = "";
+    document.getElementById("proveedor_id").value = "1";
+    ["cantidad","stock","precio_costo","precio_venta"].forEach(id => {
+        document.getElementById(id).value = "0";
+    });
 }
 
 
@@ -1002,6 +2281,10 @@ if (response.ok) {
     document.getElementById("nuevoCorreo").value = "";
     document.getElementById("nuevoRol").value = "2";
 
+    // Refresca la tabla del módulo y cierra el formulario (no altera el flujo)
+    if (typeof cargarUsuarios === "function") cargarUsuarios();
+    if (typeof cerrarFormUsuario === "function") cerrarFormUsuario();
+
 } else {
 
     alert(data.error || data.message || "Error al crear usuario");
@@ -1018,68 +2301,272 @@ if (response.ok) {
 }
 
 
+// ======================================================
+//  MÓDULO USUARIOS (vista/tabla) — reutiliza la tabla `usuarios`.
+//  No altera creación/login/roles: sólo lee y gestiona estado/edición básica.
+// ======================================================
+
+let USUARIOS = [];
+let usuPagina = 1;
+const USU_POR_PAGINA = 8;
+
+// Mapa de colores por rol para los badges (coincide con el estilo del sistema)
+function badgeRol(rol) {
+    const r = (rol || "").toLowerCase();
+    let clase = "estado-activo";              // verde por defecto
+    if (r.includes("admin")) clase = "estado-activo";
+    else if (r.includes("superv")) clase = "estado-agotado";   // rojo
+    else if (r.includes("vend")) clase = "estado-agotar";      // naranja
+    else clase = "tag-tipo";
+    const txt = rol || "Sin rol";
+    return clase === "tag-tipo"
+        ? `<span class="tag-tipo">${txt}</span>`
+        : `<span class="badge-estado ${clase}">${txt}</span>`;
+}
+
+function esActivo(u) {
+    return (u.estado === 1 || u.estado === true || u.estado === "1" || u.estado == null);
+}
+
+async function cargarUsuarios() {
+    try {
+        const r = await apiFetch("/usuarios");
+        const d = await r.json();
+        USUARIOS = d.data || [];
+    } catch (e) {
+        USUARIOS = [];
+    }
+    llenarFiltroRolesUsuarios();
+    renderUsuariosTabla(true);
+}
+
+// Llena el filtro de Rol con los roles presentes en los datos
+function llenarFiltroRolesUsuarios() {
+    const sel = document.getElementById("filtroUsuRol");
+    if (!sel) return;
+    const actual = sel.value;
+    const roles = [...new Set(USUARIOS.map(u => u.rol).filter(Boolean))].sort();
+    sel.innerHTML = `<option value="">Todos</option>`;
+    roles.forEach(r => sel.innerHTML += `<option value="${r}">${r}</option>`);
+    sel.value = actual;
+}
+
+function usuariosFiltrados() {
+    const texto = (document.getElementById("buscadorUsuario")?.value || "").toLowerCase().trim();
+    const fRol = document.getElementById("filtroUsuRol")?.value || "";
+    const fEstado = document.getElementById("filtroUsuEstado")?.value || "";
+    const orden = document.getElementById("ordenUsuario")?.value || "id";
+
+    let lista = USUARIOS.filter(u => {
+        const codigo = "U-" + String(u.id).padStart(3, "0");
+        const t = !texto ||
+            (u.usuario || "").toLowerCase().includes(texto) ||
+            (u.correo || "").toLowerCase().includes(texto) ||
+            codigo.toLowerCase().includes(texto);
+        const rOk = !fRol || u.rol === fRol;
+        const eOk = fEstado === "" || (esActivo(u) ? "1" : "0") === fEstado;
+        return t && rOk && eOk;
+    });
+
+    lista.sort((a, b) => {
+        if (orden === "usuario") return (a.usuario || "").localeCompare(b.usuario || "", "es");
+        if (orden === "rol") return (a.rol || "").localeCompare(b.rol || "", "es");
+        if (orden === "estado") return (esActivo(b) ? 1 : 0) - (esActivo(a) ? 1 : 0);
+        if (orden === "fecha_creacion") return String(b.fecha_creacion || "").localeCompare(String(a.fecha_creacion || ""));
+        return a.id - b.id;
+    });
+
+    return lista;
+}
+
+function renderUsuariosTabla(reiniciar) {
+    const tbody = document.getElementById("tablaUsuarios");
+    if (!tbody) return;
+    if (reiniciar === true) usuPagina = 1;
+
+    const lista = usuariosFiltrados();
+    const totalPaginas = Math.max(1, Math.ceil(lista.length / USU_POR_PAGINA));
+    if (usuPagina > totalPaginas) usuPagina = totalPaginas;
+    const inicio = (usuPagina - 1) * USU_POR_PAGINA;
+    const pagina = lista.slice(inicio, inicio + USU_POR_PAGINA);
+
+    tbody.innerHTML = "";
+    if (!lista.length) {
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;color:#7a8291;padding:30px">No se encontraron usuarios.</td></tr>`;
+        renderPaginacionUsuarios(0, 0);
+        return;
+    }
+
+    pagina.forEach(u => {
+        const codigo = "U-" + String(u.id).padStart(3, "0");
+        const activo = esActivo(u);
+        const estadoBadge = activo
+            ? `<span class="badge-estado estado-activo">● ACTIVO</span>`
+            : `<span class="badge-estado estado-agotado">● INACTIVO</span>`;
+        const fecha = u.fecha_creacion ? String(u.fecha_creacion).substring(0, 10) : "—";
+
+        tbody.innerHTML += `
+            <tr>
+                <td class="col-nombre">${u.usuario || ""}</td>
+                <td>${codigo}</td>
+                <td>${badgeRol(u.rol)}</td>
+                <td>${u.correo || "—"}</td>
+                <td>${estadoBadge}</td>
+                <td class="celda-fecha">${fecha}</td>
+                <td class="celda-fecha">—</td>
+                <td>
+                    <div class="adm-acciones">
+                        <button class="acc-ver" title="Ver detalle" onclick="verUsuario(${u.id})">👁️</button>
+                        <button class="acc-editar" title="Editar" onclick="editarUsuario(${u.id})">✏️</button>
+                        <button class="acc-ver" title="${activo ? "Desactivar" : "Activar"}" style="color:${activo ? "#d98310" : "#166a2d"}" onclick="toggleEstadoUsuario(${u.id})">${activo ? "⏸️" : "▶️"}</button>
+                        <button class="acc-borrar" title="Eliminar" onclick="eliminarUsuario(${u.id})">🗑️</button>
+                    </div>
+                </td>
+            </tr>`;
+    });
+
+    renderPaginacionUsuarios(totalPaginas, lista.length);
+}
+
+function renderPaginacionUsuarios(totalPaginas, totalItems) {
+    const cont = document.getElementById("paginacionUsuarios");
+    if (!cont) return;
+    if (totalPaginas <= 1) {
+        cont.innerHTML = totalItems ? `<span class="pag-info">${totalItems} usuario(s)</span>` : "";
+        return;
+    }
+    let html = `<span class="pag-info">${totalItems} usuario(s) · página ${usuPagina} de ${totalPaginas}</span>`;
+    html += `<button onclick="irPaginaUsu(${usuPagina - 1})" ${usuPagina === 1 ? "disabled" : ""}>‹</button>`;
+    for (let i = 1; i <= totalPaginas; i++) {
+        html += `<button class="${i === usuPagina ? "activo" : ""}" onclick="irPaginaUsu(${i})">${i}</button>`;
+    }
+    html += `<button onclick="irPaginaUsu(${usuPagina + 1})" ${usuPagina === totalPaginas ? "disabled" : ""}>›</button>`;
+    cont.innerHTML = html;
+}
+
+function irPaginaUsu(n) { usuPagina = n; renderUsuariosTabla(); }
+
+// ---- Formularios (abrir/cerrar) ----
+function abrirFormUsuario() {
+    cerrarEditarUsuario();
+    const p = document.getElementById("panelFormUsuario");
+    p.style.display = "block";
+    p.scrollIntoView({ behavior: "smooth" });
+}
+function cerrarFormUsuario() {
+    document.getElementById("panelFormUsuario").style.display = "none";
+}
+function cerrarEditarUsuario() {
+    document.getElementById("panelEditarUsuario").style.display = "none";
+}
+
+// ---- Acciones ----
+function verUsuario(id) {
+    const u = USUARIOS.find(x => x.id === id);
+    if (!u) return;
+    alert(
+        `Usuario: ${u.usuario}\n` +
+        `Código: U-${String(u.id).padStart(3, "0")}\n` +
+        `Correo: ${u.correo || "-"}\n` +
+        `RUT: ${u.rut || "-"}\n` +
+        `Rol: ${u.rol || "-"}\n` +
+        `Estado: ${esActivo(u) ? "Activo" : "Inactivo"}\n` +
+        `Registrado: ${u.fecha_creacion ? String(u.fecha_creacion).substring(0, 10) : "-"}`
+    );
+}
+
+function editarUsuario(id) {
+    const u = USUARIOS.find(x => x.id === id);
+    if (!u) return;
+    cerrarFormUsuario();
+    document.getElementById("editUsuId").value = u.id;
+    document.getElementById("editUsuNombre").value = u.usuario || "";
+    document.getElementById("editUsuRut").value = u.rut || "";
+    document.getElementById("editUsuCorreo").value = u.correo || "";
+    document.getElementById("editUsuRol").value = u.rol_id || "1";
+    const p = document.getElementById("panelEditarUsuario");
+    p.style.display = "block";
+    p.scrollIntoView({ behavior: "smooth" });
+}
+
+async function guardarEdicionUsuario() {
+    const id = document.getElementById("editUsuId").value;
+    const body = {
+        correo: document.getElementById("editUsuCorreo").value.trim(),
+        rut: document.getElementById("editUsuRut").value.trim(),
+        rol_id: parseInt(document.getElementById("editUsuRol").value)
+    };
+    const r = await apiFetch(`/usuarios/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+    });
+    const d = await r.json();
+    if (d.success) {
+        alert("Usuario actualizado");
+        cerrarEditarUsuario();
+        cargarUsuarios();
+    } else {
+        alert(d.message || "No se pudo actualizar");
+    }
+}
+
+async function toggleEstadoUsuario(id) {
+    const u = USUARIOS.find(x => x.id === id);
+    if (!u) return;
+    const nuevo = esActivo(u) ? 0 : 1;
+    if (!confirm(`¿${nuevo ? "Activar" : "Desactivar"} al usuario "${u.usuario}"?`)) return;
+    const r = await apiFetch(`/usuarios/${id}/estado`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ estado: nuevo })
+    });
+    const d = await r.json();
+    if (d.success) { cargarUsuarios(); }
+    else alert(d.message || "No se pudo cambiar el estado");
+}
+
+async function eliminarUsuario(id) {
+    const u = USUARIOS.find(x => x.id === id);
+    if (!confirm(`¿Eliminar al usuario "${u ? u.usuario : id}"?`)) return;
+    const r = await apiFetch(`/usuarios/${id}`, { method: "DELETE" });
+    const d = await r.json();
+    if (d.success) { alert("Usuario eliminado"); cargarUsuarios(); }
+    else alert(d.message || "No se pudo eliminar");
+}
 
 
 // ================= CATEGORIAS =================
 
+// Estado en memoria (se reutiliza en varios módulos)
+let CATEGORIAS = [];
+let PRODUCTOS = [];
 
 async function cargarCategorias(){
 
+    const response = await apiFetch("/categorias");
+    const resultado = await response.json();
 
+    CATEGORIAS = resultado.data || [];
 
-    const response =
-    await apiFetch(
-        "/categorias"
-    );
-
-
-
-    const resultado =
-    await response.json();
-
-
-
-    const categorias =
-    resultado.data || [];
-
-
-
-    const select =
-    document.getElementById(
-        "categoria"
-    );
-
-
-
-    select.innerHTML =
-    `
-    <option value="">
-    Seleccione...
-    </option>
-    `;
-
-
-
-    categorias.forEach(c=>{
-
-
-        select.innerHTML +=
-        `
-        <option value="${c.id}">
-        ${c.nombre}
-        </option>
-        `;
-
-
+    // 1) Select del formulario de producto (id original #categoria)
+    const select = document.getElementById("categoria");
+    select.innerHTML = `<option value="">Seleccione...</option>`;
+    CATEGORIAS.forEach(c => {
+        select.innerHTML += `<option value="${c.id}">${c.nombre}</option>`;
     });
 
+    // 2) Filtro de categoría del módulo Productos
+    const filtro = document.getElementById("filtroCategoria");
+    if (filtro) {
+        filtro.innerHTML = `<option value="">Todas</option>`;
+        CATEGORIAS.forEach(c => {
+            filtro.innerHTML += `<option value="${c.nombre}">${c.nombre}</option>`;
+        });
+    }
 
+    actualizarStats();
 }
-
-
-
-
-
 
 
 
@@ -1171,74 +2658,80 @@ async function guardar(){
         !producto.fecha_vencimiento
     ){
 
-
-        alert(
-            "Complete los campos obligatorios"
+        mostrarModal(
+            "Faltan campos obligatorios. Completa Nombre, Categoría y Fecha de vencimiento.",
+            { tipo: "error", titulo: "Campos obligatorios" }
         );
-
-
         return;
-
 
     }
 
+    // --- Validación de campos numéricos ANTES de enviar ---
+    // (detecta, por ejemplo, texto donde debe ir un número como "Proveedor ID")
+    const proveedorTxt = document.getElementById("proveedor_id").value;
+    const errores = [
+        validarNumero(proveedorTxt, "Proveedor ID", { entero: true, min: 1 }),
+        validarNumero(document.getElementById("cantidad").value, "Cantidad", { entero: true, min: 0 }),
+        validarNumero(document.getElementById("stock").value, "Stock mínimo", { entero: true, min: 0 }),
+        validarNumero(document.getElementById("precio_costo").value, "Precio costo", { min: 0 }),
+        validarNumero(document.getElementById("precio_venta").value, "Precio venta", { min: 0 })
+    ].filter(Boolean);
 
+    if (errores.length) {
+        mostrarModal(
+            "Revisa los datos ingresados:",
+            { tipo: "error", titulo: "Dato inválido", detalle: errores.join("\n") }
+        );
+        return;
+    }
 
+    // Asegura que proveedor_id viaje como número
+    producto.proveedor_id = Number(proveedorTxt);
 
+    // Si hay un ID en edición, usamos PUT (endpoint existente /productos/:id);
+    // de lo contrario, POST para crear. Reutiliza la misma lógica/endpoints.
+    const editId = document.getElementById("productoEditId").value;
+    const esEdicion = editId !== "";
 
-
-    const response =
-    await apiFetch(
-        "/productos",
-        {
-
-
-            method:"POST",
-
-
-            headers:{
-                "Content-Type":"application/json"
-            },
-
-
-            body:JSON.stringify(producto)
-
-
-
-        }
-    );
-
-
-
-    const data =
-    await response.json();
-
-
-
+    let response, data;
+    try {
+        response = await apiFetch(
+            esEdicion ? `/productos/${editId}` : "/productos",
+            {
+                method: esEdicion ? "PUT" : "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(producto)
+            }
+        );
+        data = await response.json();
+    } catch (err) {
+        mostrarModal(
+            "No se pudo conectar con el servidor. Verifica tu conexión e inténtalo de nuevo.",
+            { tipo: "error", titulo: "Error de conexión", detalle: String(err && err.message || err) }
+        );
+        return;
+    }
 
     if(data.success){
 
-
-        alert(
-            "Producto guardado"
+        mostrarModal(
+            esEdicion ? "El producto se actualizó correctamente." : "El producto se guardó correctamente.",
+            { tipo: "ok", titulo: "Listo" }
         );
 
-
+        cerrarFormProducto();
         cargarProductos();
-
         cargarAlertas();
-
 
     }else{
 
-
-        alert(
-            data.message
+        // El backend ahora envía un detalle claro del motivo del fallo
+        mostrarModal(
+            "No se pudo guardar el producto.",
+            { tipo: "error", detalle: data.message || "Error desconocido" }
         );
 
-
     }
-
 
 }
 
@@ -1252,79 +2745,185 @@ async function guardar(){
 
 async function cargarProductos(){
 
+    // Reutiliza el endpoint existente GET /productos (con JOIN categoria/proveedor)
+    const response = await apiFetch("/productos");
+    const resultado = await response.json();
 
-    const response =
-    await apiFetch(
-        "/productos"
-    );
+    PRODUCTOS = resultado.data || [];
 
-
-
-    const resultado =
-    await response.json();
-
+    renderProductosTabla();
+    actualizarStats();
+}
 
 
-    const productos =
-    resultado.data || [];
+// ---- Clasificación de estado/stock (para badges) ----
+function clasificarProducto(p){
+    const stock = Number(p.stock_actual ?? p.cantidad ?? 0);
+    const minimo = Number(p.stock_minimo ?? 0);
+
+    let estado, estadoClase, estadoTxt;
+    if (stock <= 0) {
+        estado = "agotado"; estadoClase = "estado-agotado"; estadoTxt = "AGOTADO";
+    } else if (stock <= Math.max(minimo, 10)) {
+        estado = "agotar"; estadoClase = "estado-agotar"; estadoTxt = "POR AGOTARSE";
+    } else {
+        estado = "activo"; estadoClase = "estado-activo"; estadoTxt = "ACTIVO";
+    }
+
+    let stockClase;
+    if (stock <= 0) stockClase = "stock-cero";
+    else if (stock <= Math.max(minimo, 10)) stockClase = "stock-medio";
+    else stockClase = "stock-alto";
+
+    return { stock, estado, estadoClase, estadoTxt, stockClase };
+}
 
 
+// ---- Render de la tabla estilizada de productos (con filtros) ----
+function renderProductosTabla(){
+    const tbody = document.getElementById("tabla");
+    if (!tbody) return;
 
-    const tabla =
-    document.getElementById(
-        "tabla"
-    );
+    const texto = (document.getElementById("buscadorProducto")?.value || "").toLowerCase().trim();
+    const fcat = document.getElementById("filtroCategoria")?.value || "";
+    const fest = document.getElementById("filtroEstado")?.value || "";
+    const ffecha = document.getElementById("filtroFecha")?.value || "";
 
-
-
-    tabla.innerHTML="";
-
-
-
-    productos.forEach(p=>{
-
-
-        tabla.innerHTML +=
-
-        `
-
-        <tr>
-
-        <td>
-        ${p.nombre}
-        </td>
-
-
-        <td>
-        ${p.categoria || ""}
-        </td>
-
-
-        <td>
-        ${
-            p.fecha_vencimiento
-            ?
-            p.fecha_vencimiento.substring(0,10)
-            :
-            ""
-        }
-        </td>
-
-
-        <td>
-        ${p.cantidad}
-        </td>
-
-
-        </tr>
-
-        `;
-
-
+    const lista = PRODUCTOS.filter(p => {
+        const info = clasificarProducto(p);
+        const code = (p.codigo_barras || p.sku || "").toLowerCase();
+        const coincideTexto = !texto ||
+            (p.nombre || "").toLowerCase().includes(texto) || code.includes(texto);
+        const coincideCat = !fcat || p.categoria === fcat;
+        const coincideEst = !fest || info.estado === fest;
+        const coincideFecha = !ffecha ||
+            (p.fecha_vencimiento && p.fecha_vencimiento.substring(0,10) === ffecha);
+        return coincideTexto && coincideCat && coincideEst && coincideFecha;
     });
 
+    tbody.innerHTML = "";
+
+    if (!lista.length) {
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;color:#7a8291;padding:30px">No se encontraron productos.</td></tr>`;
+        return;
+    }
+
+    lista.forEach(p => {
+        const info = clasificarProducto(p);
+        const codigo = p.codigo_barras || p.sku || "—";
+        const precio = Number(p.precio_venta || 0).toFixed(2);
+        const vence = p.fecha_vencimiento ? p.fecha_vencimiento.substring(0,10) : "—";
+
+        tbody.innerHTML += `
+            <tr>
+                <td class="col-nombre">${p.nombre || ""}</td>
+                <td>${codigo}</td>
+                <td><span class="tag-tipo">PRODUCTO</span></td>
+                <td>S/ ${precio}</td>
+                <td><span class="badge-stock ${info.stockClase}">${info.stock}</span></td>
+                <td class="celda-fecha">${vence !== "—" ? "📅 " + vence : "—"}</td>
+                <td><span class="badge-estado ${info.estadoClase}">${info.estadoTxt}</span></td>
+                <td>
+                    <div class="adm-acciones">
+                        <button class="acc-editar" title="Editar" onclick="editarProducto(${p.id})">✏️</button>
+                        <button class="acc-ver" title="Ver" onclick="verProducto(${p.id})">👁️</button>
+                        <button class="acc-borrar" title="Eliminar" onclick="eliminarProducto(${p.id})">🗑️</button>
+                    </div>
+                </td>
+            </tr>
+        `;
+    });
+}
 
 
+// ---- Ver producto (detalle rápido) ----
+function verProducto(id){
+    const p = PRODUCTOS.find(x => x.id === id);
+    if (!p) return;
+    const info = clasificarProducto(p);
+    alert(
+        `Producto: ${p.nombre}\n` +
+        `Categoría: ${p.categoria || "-"}\n` +
+        `Proveedor: ${p.proveedor || "-"}\n` +
+        `Código: ${p.codigo_barras || p.sku || "-"}\n` +
+        `Precio venta: S/ ${Number(p.precio_venta||0).toFixed(2)}\n` +
+        `Stock: ${info.stock} (${info.estadoTxt})\n` +
+        `Vence: ${p.fecha_vencimiento ? p.fecha_vencimiento.substring(0,10) : "-"}`
+    );
+}
+
+
+// ---- Editar producto: carga el form con los datos (reutiliza GET /productos/:id) ----
+async function editarProducto(id){
+    const response = await apiFetch(`/productos/${id}`);
+    const resultado = await response.json();
+    const p = resultado.data;
+    if (!p) { alert("No se pudo cargar el producto"); return; }
+
+    abrirFormProducto();
+    document.getElementById("productoEditId").value = p.id;
+    document.getElementById("tituloFormProducto").textContent = "Editar producto";
+
+    document.getElementById("nombre").value = p.nombre || "";
+    document.getElementById("categoria").value = p.categoria_id || "";
+    document.getElementById("proveedor_id").value = p.proveedor_id || "1";
+    document.getElementById("marca").value = p.marca || "";
+    document.getElementById("codigo_barras").value = p.codigo_barras || "";
+    document.getElementById("sku").value = p.sku || "";
+    document.getElementById("numero_documento").value = p.numero_documento || "";
+    document.getElementById("fecha_elaboracion").value = p.fecha_elaboracion ? p.fecha_elaboracion.substring(0,10) : "";
+    document.getElementById("fecha").value = p.fecha_vencimiento ? p.fecha_vencimiento.substring(0,10) : "";
+    document.getElementById("cantidad").value = p.cantidad ?? 0;
+    document.getElementById("stock").value = p.stock_minimo ?? 0;
+    document.getElementById("precio_costo").value = p.precio_costo ?? 0;
+    document.getElementById("precio_venta").value = p.precio_venta ?? 0;
+}
+
+
+// ---- Eliminar producto (reutiliza DELETE /productos/:id) ----
+async function eliminarProducto(id){
+    const p = PRODUCTOS.find(x => x.id === id);
+    if (!confirm(`¿Eliminar el producto "${p ? p.nombre : id}"?`)) return;
+
+    const response = await apiFetch(`/productos/${id}`, { method: "DELETE" });
+    const data = await response.json();
+
+    if (data.success) {
+        alert("Producto eliminado");
+        cargarProductos();
+        cargarAlertas();
+    } else {
+        alert(data.message || "No se pudo eliminar");
+    }
+}
+
+
+// ---- Estadísticas del dashboard ----
+function actualizarStats(){
+    const total = PRODUCTOS.length;
+    const agotados = PRODUCTOS.filter(p => Number(p.stock_actual ?? p.cantidad ?? 0) <= 0).length;
+
+    const hoy = new Date();
+    const en7 = new Date(); en7.setDate(hoy.getDate() + 7);
+    const porVencer = PRODUCTOS.filter(p => {
+        if (!p.fecha_vencimiento) return false;
+        const f = new Date(p.fecha_vencimiento);
+        return f >= hoy && f <= en7;
+    }).length;
+
+    const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+    set("statProductos", total);
+    set("statAlertas", porVencer);
+    set("statAgotados", agotados);
+
+    // Stats de módulos comerciales (si ya cargaron)
+    const totalVendido = (typeof VENTAS !== "undefined" ? VENTAS : [])
+        .filter(v => v.estado_pago !== "Anulado")
+        .reduce((s, v) => s + (Number(v.total) || 0), 0);
+    set("statClientes", (typeof CLIENTES !== "undefined" ? CLIENTES.length : 0));
+    set("statCotizaciones", (typeof COTIZACIONES !== "undefined" ? COTIZACIONES.length : 0));
+    set("statVentas", (typeof VENTAS !== "undefined" ? VENTAS.length : 0));
+    set("statIngresos", "S/ " + totalVendido.toFixed(2));
 }
 
 
@@ -1510,6 +3109,587 @@ async function imprimirAlertas(){
 }
 
 
+
+// ======================================================
+//  MÓDULOS COMERCIALES: CLIENTES / COTIZACIONES / VENTAS
+//  Reutilizan apiFetch() y los endpoints montados en server.js.
+// ======================================================
+
+let CLIENTES = [];
+let COTIZACIONES = [];
+let VENTAS = [];
+
+const fmtMoneda = (n) => "S/ " + (Number(n) || 0).toFixed(2);
+const fmtFecha = (f) => f ? String(f).substring(0, 10) : "—";
+
+// ---------- helpers de carga ----------
+async function cargarClientes() {
+    try {
+        const r = await apiFetch("/clientes");
+        const d = await r.json();
+        CLIENTES = d.data || [];
+    } catch (e) { CLIENTES = []; }
+    renderClientesTabla();
+    llenarSelectClientes();
+    actualizarStats();
+}
+
+async function cargarCotizaciones() {
+    try {
+        const r = await apiFetch("/cotizaciones");
+        const d = await r.json();
+        COTIZACIONES = d.data || [];
+    } catch (e) { COTIZACIONES = []; }
+    renderCotizacionesTabla();
+    actualizarStats();
+}
+
+async function cargarVentas() {
+    try {
+        const r = await apiFetch("/ventas");
+        const d = await r.json();
+        VENTAS = d.data || [];
+    } catch (e) { VENTAS = []; }
+    renderVentasTabla();
+    actualizarStats();
+}
+
+// Rellena los <select> de cliente en los formularios de cotización y venta
+function llenarSelectClientes() {
+    ["cot_cliente", "ven_cliente"].forEach(id => {
+        const sel = document.getElementById(id);
+        if (!sel) return;
+        const actual = sel.value;
+        sel.innerHTML = `<option value="">Seleccione...</option>`;
+        CLIENTES.forEach(c => {
+            sel.innerHTML += `<option value="${c.id_cliente}">${c.nombre_completo}</option>`;
+        });
+        sel.value = actual;
+    });
+}
+
+// ======================================================
+//  CLIENTES
+// ======================================================
+
+function badgeEstadoCliente(estado) {
+    const clase = estado === "Inactivo" ? "estado-agotado" : "estado-activo";
+    return `<span class="badge-estado ${clase}">${(estado || "Activo").toUpperCase()}</span>`;
+}
+
+function renderClientesTabla() {
+    const tbody = document.getElementById("tablaClientes");
+    if (!tbody) return;
+
+    const texto = (document.getElementById("buscadorCliente")?.value || "").toLowerCase().trim();
+    const fEstado = document.getElementById("filtroClienteEstado")?.value || "";
+    const fDoc = document.getElementById("filtroClienteDoc")?.value || "";
+    const fFrec = document.getElementById("filtroClienteFrec")?.value || "";
+
+    const lista = CLIENTES.filter(c => {
+        const t = !texto ||
+            (c.nombre_completo || "").toLowerCase().includes(texto) ||
+            (c.codigo_cliente || "").toLowerCase().includes(texto) ||
+            (c.numero_documento || "").toLowerCase().includes(texto);
+        const e = !fEstado || c.estado === fEstado;
+        const d = !fDoc || c.tipo_documento === fDoc;
+        const f = !fFrec || c.frecuencia_compra === fFrec;
+        return t && e && d && f;
+    });
+
+    tbody.innerHTML = "";
+    if (!lista.length) {
+        tbody.innerHTML = `<tr><td colspan="11" style="text-align:center;color:#7a8291;padding:30px">No se encontraron clientes.</td></tr>`;
+        return;
+    }
+
+    lista.forEach(c => {
+        const doc = (c.tipo_documento ? c.tipo_documento + " " : "") + (c.numero_documento || "");
+        tbody.innerHTML += `
+            <tr>
+                <td>${c.codigo_cliente || "—"}</td>
+                <td class="col-nombre">${c.nombre_completo || ""}</td>
+                <td>${c.email || "—"}</td>
+                <td>${c.telefono || "—"}</td>
+                <td>${doc.trim() || "—"}</td>
+                <td>${c.direccion || "—"}</td>
+                <td class="celda-fecha">${fmtFecha(c.fecha_registro)}</td>
+                <td class="celda-fecha">${fmtFecha(c.ultima_compra)}</td>
+                <td><span class="tag-tipo">${c.frecuencia_compra || "Nuevo"}</span></td>
+                <td>${badgeEstadoCliente(c.estado)}</td>
+                <td>
+                    <div class="adm-acciones">
+                        <button class="acc-editar" title="Editar" onclick="editarCliente(${c.id_cliente})">✏️</button>
+                        <button class="acc-ver" title="Historial de compras" onclick="verComprasCliente(${c.id_cliente})">👁️</button>
+                        <button class="acc-borrar" title="Eliminar" onclick="eliminarCliente(${c.id_cliente})">🗑️</button>
+                    </div>
+                </td>
+            </tr>`;
+    });
+}
+
+function abrirFormCliente() {
+    document.getElementById("clienteEditId").value = "";
+    document.getElementById("tituloFormCliente").textContent = "Registrar cliente";
+    ["cli_nombre","cli_email","cli_telefono","cli_num_doc","cli_direccion"].forEach(id => document.getElementById(id).value = "");
+    document.getElementById("cli_tipo_doc").value = "DNI";
+    document.getElementById("cli_frecuencia").value = "Nuevo";
+    document.getElementById("cli_estado").value = "Activo";
+    const panel = document.getElementById("panelFormCliente");
+    panel.style.display = "block";
+    panel.scrollIntoView({ behavior: "smooth" });
+}
+
+function cerrarFormCliente() {
+    document.getElementById("panelFormCliente").style.display = "none";
+}
+
+async function guardarCliente() {
+    const body = {
+        nombre_completo: document.getElementById("cli_nombre").value.trim(),
+        email: document.getElementById("cli_email").value.trim(),
+        telefono: document.getElementById("cli_telefono").value.trim(),
+        tipo_documento: document.getElementById("cli_tipo_doc").value,
+        numero_documento: document.getElementById("cli_num_doc").value.trim(),
+        direccion: document.getElementById("cli_direccion").value.trim(),
+        frecuencia_compra: document.getElementById("cli_frecuencia").value,
+        estado: document.getElementById("cli_estado").value
+    };
+    if (!body.nombre_completo) { alert("El nombre es obligatorio"); return; }
+
+    const editId = document.getElementById("clienteEditId").value;
+    const esEdicion = editId !== "";
+    const r = await apiFetch(esEdicion ? `/clientes/${editId}` : "/clientes", {
+        method: esEdicion ? "PUT" : "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+    });
+    const d = await r.json();
+    if (d.success) {
+        alert(esEdicion ? "Cliente actualizado" : "Cliente registrado");
+        cerrarFormCliente();
+        cargarClientes();
+    } else {
+        alert(d.message || "No se pudo guardar el cliente");
+    }
+}
+
+async function editarCliente(id) {
+    const r = await apiFetch(`/clientes/${id}`);
+    const d = await r.json();
+    const c = d.data;
+    if (!c) { alert("No se pudo cargar el cliente"); return; }
+    abrirFormCliente();
+    document.getElementById("clienteEditId").value = c.id_cliente;
+    document.getElementById("tituloFormCliente").textContent = "Editar cliente";
+    document.getElementById("cli_nombre").value = c.nombre_completo || "";
+    document.getElementById("cli_email").value = c.email || "";
+    document.getElementById("cli_telefono").value = c.telefono || "";
+    document.getElementById("cli_tipo_doc").value = c.tipo_documento || "DNI";
+    document.getElementById("cli_num_doc").value = c.numero_documento || "";
+    document.getElementById("cli_direccion").value = c.direccion || "";
+    document.getElementById("cli_frecuencia").value = c.frecuencia_compra || "Nuevo";
+    document.getElementById("cli_estado").value = c.estado || "Activo";
+}
+
+async function eliminarCliente(id) {
+    const c = CLIENTES.find(x => x.id_cliente === id);
+    if (!confirm(`¿Eliminar el cliente "${c ? c.nombre_completo : id}"?`)) return;
+    const r = await apiFetch(`/clientes/${id}`, { method: "DELETE" });
+    const d = await r.json();
+    if (d.success) { alert("Cliente eliminado"); cargarClientes(); }
+    else alert(d.message || "No se pudo eliminar");
+}
+
+async function verComprasCliente(id) {
+    const c = CLIENTES.find(x => x.id_cliente === id);
+    const r = await apiFetch(`/clientes/${id}/compras`);
+    const d = await r.json();
+    const compras = d.data || [];
+    if (!compras.length) {
+        alert(`Historial de ${c ? c.nombre_completo : "cliente"}:\n\nSin compras registradas.`);
+        return;
+    }
+    const lineas = compras.map(v =>
+        `• ${v.codigo_venta} — ${fmtMoneda(v.total)} — ${v.estado_pago} — ${fmtFecha(v.fecha_venta)}`
+    ).join("\n");
+    alert(`Historial de compras de ${c ? c.nombre_completo : "cliente"}:\n\n${lineas}`);
+}
+
+// ======================================================
+//  COTIZACIONES
+// ======================================================
+
+function badgeEstadoCot(estado) {
+    const map = {
+        "Pendiente": "estado-agotar",
+        "Aprobada": "estado-activo",
+        "Rechazada": "estado-agotado",
+        "Vencida": "estado-agotado",
+        "Convertida": "estado-activo"
+    };
+    return `<span class="badge-estado ${map[estado] || "estado-agotar"}">${(estado || "Pendiente").toUpperCase()}</span>`;
+}
+
+function renderCotizacionesTabla() {
+    const tbody = document.getElementById("tablaCotizaciones");
+    if (!tbody) return;
+
+    const texto = (document.getElementById("buscadorCotizacion")?.value || "").toLowerCase().trim();
+    const fEstado = document.getElementById("filtroCotEstado")?.value || "";
+    const fFecha = document.getElementById("filtroCotFecha")?.value || "";
+
+    const lista = COTIZACIONES.filter(c => {
+        const t = !texto ||
+            (c.codigo_cotizacion || "").toLowerCase().includes(texto) ||
+            (c.cliente || "").toLowerCase().includes(texto);
+        const e = !fEstado || c.estado === fEstado;
+        const f = !fFecha || (c.fecha_cotizacion && String(c.fecha_cotizacion).substring(0,10) === fFecha);
+        return t && e && f;
+    });
+
+    tbody.innerHTML = "";
+    if (!lista.length) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:#7a8291;padding:30px">No hay cotizaciones.</td></tr>`;
+        return;
+    }
+
+    lista.forEach(c => {
+        const convertible = c.estado !== "Convertida";
+        tbody.innerHTML += `
+            <tr>
+                <td class="col-nombre">${c.cliente || "—"}</td>
+                <td>${c.codigo_cotizacion || "—"}</td>
+                <td>${c.contacto || "—"}</td>
+                <td>${fmtMoneda(c.total)}</td>
+                <td>${badgeEstadoCot(c.estado)}</td>
+                <td class="celda-fecha">${fmtFecha(c.fecha_cotizacion)}</td>
+                <td>
+                    <div class="adm-acciones">
+                        <button class="acc-editar" title="Editar" onclick="editarCotizacion(${c.id_cotizacion})">✏️</button>
+                        <button class="acc-ver" title="Ver / Imprimir PDF" onclick="imprimirCotizacion(${c.id_cotizacion})">🖨️</button>
+                        <button class="acc-ver" title="Duplicar" onclick="duplicarCotizacion(${c.id_cotizacion})">📑</button>
+                        ${convertible ? `<button class="acc-ver" title="Generar Venta" style="color:#166a2d;font-weight:700" onclick="generarVenta(${c.id_cotizacion})">➡️💰</button>` : ""}
+                        <button class="acc-borrar" title="Eliminar" onclick="eliminarCotizacion(${c.id_cotizacion})">🗑️</button>
+                    </div>
+                </td>
+            </tr>`;
+    });
+}
+
+function recalcularCot() {
+    const s = Number(document.getElementById("cot_subtotal").value) || 0;
+    const d = Number(document.getElementById("cot_descuento").value) || 0;
+    const i = Number(document.getElementById("cot_impuesto").value) || 0;
+    document.getElementById("cot_total").value = Math.max(0, s - d + i).toFixed(2);
+}
+
+function abrirFormCotizacion() {
+    document.getElementById("cotizacionEditId").value = "";
+    document.getElementById("tituloFormCotizacion").textContent = "Nueva cotización";
+    document.getElementById("cot_cliente").value = "";
+    document.getElementById("cot_contacto").value = "";
+    document.getElementById("cot_estado").value = "Pendiente";
+    ["cot_subtotal","cot_descuento","cot_impuesto"].forEach(id => document.getElementById(id).value = "0");
+    document.getElementById("cot_total").value = "0";
+    document.getElementById("cot_fecha_venc").value = "";
+    document.getElementById("cot_observaciones").value = "";
+    llenarSelectClientes();
+    const panel = document.getElementById("panelFormCotizacion");
+    panel.style.display = "block";
+    panel.scrollIntoView({ behavior: "smooth" });
+}
+
+function cerrarFormCotizacion() {
+    document.getElementById("panelFormCotizacion").style.display = "none";
+}
+
+async function guardarCotizacion() {
+    const body = {
+        id_cliente: document.getElementById("cot_cliente").value || null,
+        contacto: document.getElementById("cot_contacto").value.trim(),
+        subtotal: document.getElementById("cot_subtotal").value,
+        descuento: document.getElementById("cot_descuento").value,
+        impuesto: document.getElementById("cot_impuesto").value,
+        estado: document.getElementById("cot_estado").value,
+        fecha_vencimiento: document.getElementById("cot_fecha_venc").value || null,
+        observaciones: document.getElementById("cot_observaciones").value.trim()
+    };
+    if (!body.id_cliente) { alert("Seleccione un cliente"); return; }
+
+    const editId = document.getElementById("cotizacionEditId").value;
+    const esEdicion = editId !== "";
+    const r = await apiFetch(esEdicion ? `/cotizaciones/${editId}` : "/cotizaciones", {
+        method: esEdicion ? "PUT" : "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+    });
+    const d = await r.json();
+    if (d.success) {
+        alert(esEdicion ? "Cotización actualizada" : "Cotización creada");
+        cerrarFormCotizacion();
+        cargarCotizaciones();
+    } else {
+        alert(d.message || "No se pudo guardar la cotización");
+    }
+}
+
+async function editarCotizacion(id) {
+    const r = await apiFetch(`/cotizaciones/${id}`);
+    const d = await r.json();
+    const c = d.data;
+    if (!c) { alert("No se pudo cargar"); return; }
+    abrirFormCotizacion();
+    document.getElementById("cotizacionEditId").value = c.id_cotizacion;
+    document.getElementById("tituloFormCotizacion").textContent = "Editar cotización";
+    document.getElementById("cot_cliente").value = c.id_cliente || "";
+    document.getElementById("cot_contacto").value = c.contacto || "";
+    document.getElementById("cot_estado").value = c.estado || "Pendiente";
+    document.getElementById("cot_subtotal").value = c.subtotal || 0;
+    document.getElementById("cot_descuento").value = c.descuento || 0;
+    document.getElementById("cot_impuesto").value = c.impuesto || 0;
+    document.getElementById("cot_fecha_venc").value = c.fecha_vencimiento ? String(c.fecha_vencimiento).substring(0,10) : "";
+    document.getElementById("cot_observaciones").value = c.observaciones || "";
+    recalcularCot();
+}
+
+async function duplicarCotizacion(id) {
+    if (!confirm("¿Duplicar esta cotización?")) return;
+    const r = await apiFetch(`/cotizaciones/${id}/duplicar`, { method: "POST" });
+    const d = await r.json();
+    if (d.success) { alert("Cotización duplicada"); cargarCotizaciones(); }
+    else alert(d.message || "No se pudo duplicar");
+}
+
+async function eliminarCotizacion(id) {
+    if (!confirm("¿Eliminar esta cotización?")) return;
+    const r = await apiFetch(`/cotizaciones/${id}`, { method: "DELETE" });
+    const d = await r.json();
+    if (d.success) { alert("Cotización eliminada"); cargarCotizaciones(); }
+    else alert(d.message || "No se pudo eliminar");
+}
+
+// Convertir cotización -> venta (botón "Generar Venta")
+async function generarVenta(id) {
+    const c = COTIZACIONES.find(x => x.id_cotizacion === id);
+    if (!confirm(`¿Generar una venta a partir de la cotización ${c ? c.codigo_cotizacion : id}?`)) return;
+    const r = await apiFetch(`/ventas/desde-cotizacion/${id}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ estado_pago: "Pendiente", metodo_pago: "Efectivo" })
+    });
+    const d = await r.json();
+    if (d.success) {
+        alert(`Venta generada (${d.codigo_venta}).\nLa cotización quedó marcada como Convertida.`);
+        cargarCotizaciones();
+        cargarVentas();
+        mostrarModulo("ventas");
+    } else {
+        alert(d.message || "No se pudo generar la venta");
+    }
+}
+
+function imprimirCotizacion(id) {
+    const c = COTIZACIONES.find(x => x.id_cotizacion === id);
+    if (!c) return;
+    imprimirDocumento("COTIZACIÓN", c.codigo_cotizacion, c.cliente, c.contacto, c);
+}
+
+// ======================================================
+//  VENTAS
+// ======================================================
+
+function badgeEstadoVenta(estado) {
+    const map = { "Pagado": "estado-activo", "Pendiente": "estado-agotar", "Anulado": "estado-agotado" };
+    return `<span class="badge-estado ${map[estado] || "estado-agotar"}">${(estado || "Pendiente").toUpperCase()}</span>`;
+}
+
+function renderVentasTabla() {
+    const tbody = document.getElementById("tablaVentas");
+    if (!tbody) return;
+
+    const texto = (document.getElementById("buscadorVenta")?.value || "").toLowerCase().trim();
+    const fEstado = document.getElementById("filtroVentaEstado")?.value || "";
+    const desde = document.getElementById("filtroVentaDesde")?.value || "";
+    const hasta = document.getElementById("filtroVentaHasta")?.value || "";
+
+    const lista = VENTAS.filter(v => {
+        const t = !texto ||
+            (v.codigo_venta || "").toLowerCase().includes(texto) ||
+            (v.cliente || "").toLowerCase().includes(texto);
+        const e = !fEstado || v.estado_pago === fEstado;
+        const f = String(v.fecha_venta || "").substring(0, 10);
+        const dOk = !desde || f >= desde;
+        const hOk = !hasta || f <= hasta;
+        return t && e && dOk && hOk;
+    });
+
+    tbody.innerHTML = "";
+    if (!lista.length) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:#7a8291;padding:30px">No hay ventas.</td></tr>`;
+        return;
+    }
+
+    lista.forEach(v => {
+        tbody.innerHTML += `
+            <tr>
+                <td class="col-nombre">${v.cliente || "—"}</td>
+                <td>${v.codigo_venta || "—"}</td>
+                <td>${v.contacto || "—"}</td>
+                <td>${fmtMoneda(v.total)}</td>
+                <td>${badgeEstadoVenta(v.estado_pago)}</td>
+                <td class="celda-fecha">${fmtFecha(v.fecha_venta)}</td>
+                <td>
+                    <div class="adm-acciones">
+                        <button class="acc-ver" title="Ver detalle" onclick="verVenta(${v.id_venta})">👁️</button>
+                        <button class="acc-ver" title="Imprimir comprobante" onclick="imprimirVenta(${v.id_venta})">🖨️</button>
+                        <button class="acc-editar" title="Editar" onclick="editarVenta(${v.id_venta})">✏️</button>
+                        <button class="acc-borrar" title="Eliminar" onclick="eliminarVenta(${v.id_venta})">🗑️</button>
+                    </div>
+                </td>
+            </tr>`;
+    });
+}
+
+function recalcularVen() {
+    const s = Number(document.getElementById("ven_subtotal").value) || 0;
+    const d = Number(document.getElementById("ven_descuento").value) || 0;
+    const i = Number(document.getElementById("ven_impuesto").value) || 0;
+    document.getElementById("ven_total").value = Math.max(0, s - d + i).toFixed(2);
+}
+
+function abrirFormVenta() {
+    document.getElementById("ventaEditId").value = "";
+    document.getElementById("tituloFormVenta").textContent = "Registrar venta";
+    document.getElementById("ven_cliente").value = "";
+    document.getElementById("ven_contacto").value = "";
+    document.getElementById("ven_metodo").value = "Efectivo";
+    document.getElementById("ven_estado").value = "Pagado";
+    ["ven_subtotal","ven_descuento","ven_impuesto"].forEach(id => document.getElementById(id).value = "0");
+    document.getElementById("ven_total").value = "0";
+    document.getElementById("ven_observaciones").value = "";
+    llenarSelectClientes();
+    const panel = document.getElementById("panelFormVenta");
+    panel.style.display = "block";
+    panel.scrollIntoView({ behavior: "smooth" });
+}
+
+function cerrarFormVenta() {
+    document.getElementById("panelFormVenta").style.display = "none";
+}
+
+async function guardarVenta() {
+    const body = {
+        id_cliente: document.getElementById("ven_cliente").value || null,
+        contacto: document.getElementById("ven_contacto").value.trim(),
+        metodo_pago: document.getElementById("ven_metodo").value,
+        estado_pago: document.getElementById("ven_estado").value,
+        subtotal: document.getElementById("ven_subtotal").value,
+        descuento: document.getElementById("ven_descuento").value,
+        impuesto: document.getElementById("ven_impuesto").value,
+        observaciones: document.getElementById("ven_observaciones").value.trim()
+    };
+    if (!body.id_cliente) { alert("Seleccione un cliente"); return; }
+
+    const editId = document.getElementById("ventaEditId").value;
+    const esEdicion = editId !== "";
+    const r = await apiFetch(esEdicion ? `/ventas/${editId}` : "/ventas", {
+        method: esEdicion ? "PUT" : "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+    });
+    const d = await r.json();
+    if (d.success) {
+        alert(esEdicion ? "Venta actualizada" : "Venta registrada");
+        cerrarFormVenta();
+        cargarVentas();
+    } else {
+        alert(d.message || "No se pudo guardar la venta");
+    }
+}
+
+async function editarVenta(id) {
+    const r = await apiFetch(`/ventas/${id}`);
+    const d = await r.json();
+    const v = d.data;
+    if (!v) { alert("No se pudo cargar"); return; }
+    abrirFormVenta();
+    document.getElementById("ventaEditId").value = v.id_venta;
+    document.getElementById("tituloFormVenta").textContent = "Editar venta";
+    document.getElementById("ven_cliente").value = v.id_cliente || "";
+    document.getElementById("ven_contacto").value = v.contacto || "";
+    document.getElementById("ven_metodo").value = v.metodo_pago || "Efectivo";
+    document.getElementById("ven_estado").value = v.estado_pago || "Pagado";
+    document.getElementById("ven_subtotal").value = v.subtotal || 0;
+    document.getElementById("ven_descuento").value = v.descuento || 0;
+    document.getElementById("ven_impuesto").value = v.impuesto || 0;
+    document.getElementById("ven_observaciones").value = v.observaciones || "";
+    recalcularVen();
+}
+
+async function eliminarVenta(id) {
+    if (!confirm("¿Eliminar esta venta?")) return;
+    const r = await apiFetch(`/ventas/${id}`, { method: "DELETE" });
+    const d = await r.json();
+    if (d.success) { alert("Venta eliminada"); cargarVentas(); }
+    else alert(d.message || "No se pudo eliminar");
+}
+
+async function verVenta(id) {
+    const v = VENTAS.find(x => x.id_venta === id);
+    if (!v) return;
+    alert(
+        `Venta: ${v.codigo_venta}\n` +
+        `Cliente: ${v.cliente || "-"}\n` +
+        `Contacto: ${v.contacto || "-"}\n` +
+        `Subtotal: ${fmtMoneda(v.subtotal)}\n` +
+        `Descuento: ${fmtMoneda(v.descuento)}\n` +
+        `Impuesto: ${fmtMoneda(v.impuesto)}\n` +
+        `Total: ${fmtMoneda(v.total)}\n` +
+        `Método: ${v.metodo_pago}\n` +
+        `Estado: ${v.estado_pago}\n` +
+        `Fecha: ${fmtFecha(v.fecha_venta)}` +
+        (v.id_cotizacion ? `\nOrigen: cotización #${v.id_cotizacion}` : "")
+    );
+}
+
+function imprimirVenta(id) {
+    const v = VENTAS.find(x => x.id_venta === id);
+    if (!v) return;
+    imprimirDocumento("COMPROBANTE DE VENTA", v.codigo_venta, v.cliente, v.contacto, v);
+}
+
+// Impresión genérica (cotización o venta). Abre ventana e invoca print().
+function imprimirDocumento(titulo, codigo, cliente, contacto, doc) {
+    const w = window.open("");
+    w.document.write(`
+        <html><head><title>${titulo} ${codigo || ""}</title>
+        <style>
+            body{font-family:Segoe UI,Arial,sans-serif;color:#222;padding:30px;max-width:720px;margin:auto}
+            h1{color:#1f8a3b;margin:0 0 4px}
+            .sub{color:#777;margin-bottom:20px}
+            table{width:100%;border-collapse:collapse;margin-top:14px}
+            td{padding:8px 6px;border-bottom:1px solid #eee}
+            .tot{font-size:20px;font-weight:800;color:#1f8a3b}
+            .box{border:1px solid #ddd;border-radius:10px;padding:18px 22px}
+        </style></head><body>
+        <h1>Abarrotes Don Gil</h1>
+        <div class="sub">${titulo} — ${codigo || ""}</div>
+        <div class="box">
+            <table>
+                <tr><td><b>Cliente</b></td><td>${cliente || "—"}</td></tr>
+                <tr><td><b>Contacto</b></td><td>${contacto || "—"}</td></tr>
+                <tr><td><b>Subtotal</b></td><td>${fmtMoneda(doc.subtotal)}</td></tr>
+                <tr><td><b>Descuento</b></td><td>${fmtMoneda(doc.descuento)}</td></tr>
+                <tr><td><b>Impuesto</b></td><td>${fmtMoneda(doc.impuesto)}</td></tr>
+                <tr><td class="tot">TOTAL</td><td class="tot">${fmtMoneda(doc.total)}</td></tr>
+            </table>
+        </div>
+        </body></html>
+    `);
+    w.document.close();
+    w.print();
+}
 
 </script>
 
