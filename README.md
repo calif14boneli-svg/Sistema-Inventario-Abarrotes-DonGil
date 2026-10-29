@@ -156,4 +156,4 @@ Alertas. GET /api/alertas
 
 ...
 
-Autor Desarrollado por: Erik Arias Proyecto: Sistema de Gestión de Inventario - Aviso-Alerta Año: 2026
+Autor: Calif Espinoza Proyecto: Sistema de Gestión de Inventario Don Gil - Aviso-Alerta Año: 2026
